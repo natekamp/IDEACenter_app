@@ -6,4 +6,6 @@
     <string name="nav_settings_title">Settings</string>
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 </resources>
