@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:background="#0000FF">
+
+    <ImageView
+        android:id="@+id/imageView_register_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/idea_app_icon" />
+
+    <EditText
+        android:id="@+id/editText_register_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView_register_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:ems="10"
+        android:hint="@string/reg_email_hint"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/inputs" />
+
+    <EditText
+        android:id="@+id/editText_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_register_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:ems="10"
+        android:hint="@string/reg_password_hint"
+        android:inputType="textPassword"
+        android:background="@drawable/inputs" />
+
+    <EditText
+        android:id="@+id/editText_register_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_register_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:ems="10"
+        android:hint="@string/reg_confirm_hint"
+        android:inputType="textPassword"
+        android:background="@drawable/inputs" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_register_confirm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/reg_finish_button" />
+</RelativeLayout>
