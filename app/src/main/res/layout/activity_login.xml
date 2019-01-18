@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".LoginActivity"
     android:background="@drawable/gradient_background">
 
     <ImageView
-        android:id="@+id/register_logo"
+        android:id="@+id/login_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,10 +17,10 @@
         app:srcCompat="@drawable/idea_app_icon" />
 
     <EditText
-        android:id="@+id/register_email"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_logo"
+        android:layout_below="@+id/login_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:padding="10dp"
@@ -30,39 +30,26 @@
         android:background="@drawable/inputs" />
 
     <EditText
-        android:id="@+id/register_password"
+        android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_email"
+        android:layout_below="@+id/login_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:padding="10dp"
         android:ems="10"
-        android:hint="@string/reg_password_hint"
-        android:inputType="textPassword"
-        android:background="@drawable/inputs" />
-
-    <EditText
-        android:id="@+id/register_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:padding="10dp"
-        android:ems="10"
-        android:hint="@string/reg_confirm_hint"
+        android:hint="@string/log_password_hint"
         android:inputType="textPassword"
         android:background="@drawable/inputs" />
 
     <Button
-        android:id="@+id/register_create"
+        android:id="@+id/login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_confirm"
+        android:layout_below="@+id/login_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="@string/reg_finish_button"
+        android:text="@string/log_login_button"
         android:background="@drawable/button"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
