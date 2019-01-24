@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="90dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/header_background">
+    android:background="@color/colorAccent">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/nav_profile_image"
@@ -27,6 +27,7 @@
         android:layout_marginTop="23dp"
         android:text="username"
         android:textAlignment="viewStart"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
         android:textStyle="bold" />
 </RelativeLayout>

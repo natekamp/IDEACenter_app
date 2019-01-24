@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/login_logo"
+        android:id="@+id/aLogin_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,41 +17,71 @@
         app:srcCompat="@drawable/idea_app_icon" />
 
     <EditText
-        android:id="@+id/login_email"
+        android:id="@+id/aLogin_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_logo"
+        android:layout_below="@+id/aLogin_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:padding="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/inputs"
         android:ems="10"
         android:hint="@string/reg_email_hint"
         android:inputType="textEmailAddress"
-        android:background="@drawable/inputs" />
+        android:padding="10dp" />
 
     <EditText
-        android:id="@+id/login_password"
+        android:id="@+id/aLogin_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_email"
+        android:layout_below="@+id/aLogin_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:padding="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/inputs"
         android:ems="10"
         android:hint="@string/log_password_hint"
         android:inputType="textPassword"
-        android:background="@drawable/inputs" />
+        android:padding="10dp" />
 
     <Button
-        android:id="@+id/login_login"
+        android:id="@+id/aLogin_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_password"
+        android:layout_below="@+id/aLogin_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="@string/log_login_button"
         android:background="@drawable/button"
+        android:padding="10dp"
+        android:text="@string/log_login_button"
         android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:padding="10dp" />
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/aLogin_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/aLogin_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/log_message"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/aLogin_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/button"
+        android:padding="10dp"
+        android:text="@string/log_register_button"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+
 </RelativeLayout>
