@@ -20,9 +20,9 @@ public class SetupActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        userName = (EditText) findViewById(R.id.aSetup_name);
-        userGrade = (EditText) findViewById(R.id.aSetup_grade);
-        saveButton = (Button) findViewById(R.id.aSetup_save);
-        profileImage = (CircleImageView) findViewById(R.id.aSetup_icon);
+        userName = (EditText) findViewById(R.id.setup_name);
+        userGrade = (EditText) findViewById(R.id.setup_grade);
+        saveButton = (Button) findViewById(R.id.setup_save);
+        profileImage = (CircleImageView) findViewById(R.id.setup_icon);
     }
 }

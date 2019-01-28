@@ -18,10 +18,10 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginButton = (Button) findViewById(R.id.aLogin_login);
-        registerButton = (Button) findViewById(R.id.aLogin_register);
-        userEmail = (EditText) findViewById(R.id.aLogin_email);
-        userPassword = (EditText) findViewById(R.id.aLogin_password);
+        loginButton = (Button) findViewById(R.id.login_login);
+        registerButton = (Button) findViewById(R.id.login_register);
+        userEmail = (EditText) findViewById(R.id.login_email);
+        userPassword = (EditText) findViewById(R.id.login_password);
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {

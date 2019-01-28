@@ -8,7 +8,7 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/aLogin_logo"
+        android:id="@+id/login_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,10 +17,10 @@
         app:srcCompat="@drawable/idea_app_icon" />
 
     <EditText
-        android:id="@+id/aLogin_email"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/aLogin_logo"
+        android:layout_below="@+id/login_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="5dp"
@@ -32,10 +32,10 @@
         android:padding="10dp" />
 
     <EditText
-        android:id="@+id/aLogin_password"
+        android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/aLogin_email"
+        android:layout_below="@+id/login_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="5dp"
@@ -47,10 +47,10 @@
         android:padding="10dp" />
 
     <Button
-        android:id="@+id/aLogin_login"
+        android:id="@+id/login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/aLogin_password"
+        android:layout_below="@+id/login_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/button"
@@ -60,10 +60,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/aLogin_message"
+        android:id="@+id/login_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/aLogin_register"
+        android:layout_above="@+id/login_register"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="@string/log_message"
@@ -72,7 +72,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/aLogin_register"
+        android:id="@+id/login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
