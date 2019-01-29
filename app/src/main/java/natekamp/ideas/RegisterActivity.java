@@ -1,6 +1,5 @@
 package natekamp.ideas;
 
-import android.app.IntentService;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -42,12 +41,12 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                CreateNewAccount();
+                createNewAccount();
             }
         });
     }
 
-    private void CreateNewAccount()
+    private void createNewAccount()
     {
         String email = userEmail.getText().toString();
         String password = userPassword.getText().toString();

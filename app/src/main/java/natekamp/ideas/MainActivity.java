@@ -18,13 +18,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
 {
+    private FirebaseAuth mAuth;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView postList;
     private Toolbar mToolbar;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,18 +32,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        //google login from end of last video?
-
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Home");
-
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle("Home");
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+            actionBarDrawerToggle.syncState();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
 
@@ -63,8 +58,15 @@ public class MainActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) sendToLoginActivity();
+        else checkIfUserExists();
+    }
+
+    private void checkIfUserExists()
+    {
+        final String currentUser_id = mAuth.getCurrentUser().getUid();
     }
 
     private void sendToLoginActivity()
@@ -100,7 +102,9 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Logout Selected", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+                Toast.makeText(this, this.getString(R.string.logout_msg), Toast.LENGTH_SHORT).show();
+                sendToLoginActivity();
                 break;
         }
     }

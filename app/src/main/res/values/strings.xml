@@ -14,14 +14,16 @@
     <string name="reg_confirm_hint">Confirm password</string>
     <string name="reg_finish_button">Create Account</string>
     <string name="log_login_button">Login</string>
-    <string name="log_message">First time using idea?</string>
+    <string name="log_message">First time using the LHS idea app?</string>
     <string name="log_register_button">New Account</string>
     <string name="set_name_hint">Enter your full name</string>
     <string name="set_grade_hint">Enter your grade level (9&#8211;12)</string>
     <string name="set_save_button">Save and Continue</string>
     <string name="empty_field_msg">Please complete all required fields.</string>
     <string name="password_match_msg">Your passwords do not match.</string>
-    <string name="auth_success_msg">Successfully created account!</string>
-    <string name="progress_msg_a">Working...</string>
+    <string name="auth_success_msg">Successfully created your account!</string>
+    <string name="login_success_msg">Successfully logged in.</string>
+    <string name="logout_msg">Logged out.</string>
+    <string name="progress_msg_a">Working&#8230;</string>
     <string name="progress_msg_b">Please wait.</string>
 </resources>

@@ -9,7 +9,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetupActivity extends AppCompatActivity
 {
-
     private EditText userName, userGrade;
     private Button saveButton;
     private CircleImageView profileImage;
