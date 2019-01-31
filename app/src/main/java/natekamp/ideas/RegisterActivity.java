@@ -64,13 +64,13 @@ public class RegisterActivity extends AppCompatActivity
         String confirm = userConfirm.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirm))
-            Toast.makeText(this, this.getString(R.string.empty_field_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.error_field_msg), Toast.LENGTH_SHORT).show();
         else if (!password.equals(confirm))
-            Toast.makeText(this, this.getString(R.string.password_match_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.error_password_msg), Toast.LENGTH_SHORT).show();
         else
         {
             loadingBar.setTitle(RegisterActivity.this.getString(R.string.progress_title));
-            loadingBar.setMessage(RegisterActivity.this.getString(R.string.register_progress_msg));
+            loadingBar.setMessage(RegisterActivity.this.getString(R.string.progress_register_msg));
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String resultMsg = RegisterActivity.this.getString(R.string.auth_success_msg);
+                            String resultMsg = RegisterActivity.this.getString(R.string.success_auth_msg);
                             if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
 
                             loadingBar.dismiss();

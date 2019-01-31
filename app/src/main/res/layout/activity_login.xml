@@ -27,7 +27,7 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/inputs"
         android:ems="10"
-        android:hint="@string/reg_email_hint"
+        android:hint="@string/register_email_hint"
         android:inputType="textEmailAddress"
         android:padding="10dp" />
 
@@ -42,7 +42,7 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/inputs"
         android:ems="10"
-        android:hint="@string/log_password_hint"
+        android:hint="@string/login_password_hint"
         android:inputType="textPassword"
         android:padding="10dp" />
 
@@ -55,7 +55,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/button"
         android:padding="10dp"
-        android:text="@string/log_login_button"
+        android:text="@string/login_finish_button"
         android:textColor="@color/colorAccent"
         android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
         android:layout_above="@+id/login_register"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="@string/log_message"
+        android:text="@string/login_new_user_msg"
         android:textSize="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold" />
@@ -80,7 +80,7 @@
         android:layout_marginBottom="25dp"
         android:background="@drawable/button"
         android:padding="10dp"
-        android:text="@string/log_register_button"
+        android:text="@string/login_register_button"
         android:textColor="@color/colorAccent"
         android:textStyle="bold" />
 

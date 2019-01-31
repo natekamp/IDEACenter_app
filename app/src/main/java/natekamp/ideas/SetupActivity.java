@@ -61,11 +61,11 @@ public class SetupActivity extends AppCompatActivity
         String grade = userGrade.getText().toString();
 
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(grade))
-            Toast.makeText(this, this.getString(R.string.empty_field_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.error_field_msg), Toast.LENGTH_SHORT).show();
         else
         {
             loadingBar.setTitle(SetupActivity.this.getString(R.string.progress_title));
-            loadingBar.setMessage(SetupActivity.this.getString(R.string.setup_progress_msg));
+            loadingBar.setMessage(SetupActivity.this.getString(R.string.progress_setup_msg));
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
@@ -77,7 +77,7 @@ public class SetupActivity extends AppCompatActivity
                 @Override
                 public void onComplete(@NonNull Task task)
                 {
-                    String resultMsg = SetupActivity.this.getString(R.string.setup_success_msg);
+                    String resultMsg = SetupActivity.this.getString(R.string.success_setup_msg);
                     if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
 
                     loadingBar.dismiss();

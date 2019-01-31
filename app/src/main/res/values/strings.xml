@@ -1,34 +1,40 @@
 <resources>
     <string name="app_name">idea</string>
+
     <string name="nav_home_title">Home</string>
     <string name="nav_friends_title">Friends</string>
     <string name="nav_messages_title">Messages</string>
     <string name="nav_settings_title">Settings</string>
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
+
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
-    <string name="reg_email_hint">Enter your school e-mail</string>
-    <string name="reg_password_hint">Enter a password</string>
-    <string name="log_password_hint">Enter your password</string>
-    <string name="reg_confirm_hint">Confirm password</string>
-    <string name="reg_finish_button">Create Account</string>
-    <string name="log_login_button">Login</string>
-    <string name="log_message">First time using the LHS idea app?</string>
-    <string name="log_register_button">New Account</string>
-    <string name="set_name_hint">Enter your full name</string>
-    <string name="set_grade_hint">Enter your grade level (9&#8211;12)</string>
-    <string name="set_save_button">Save and Continue</string>
-    <string name="empty_field_msg">Please complete all required fields.</string>
-    <string name="password_match_msg">Your passwords do not match.</string>
-    <string name="auth_success_msg">Successfully created your account!</string>
-    <string name="login_success_msg">Successfully logged in.</string>
-    <string name="setup_success_msg">Successfully set up your account!</string>
-    <string name="logout_msg">Logged out.</string>
-    <!--<string name="progress_msg_a">Working&#8230;</string>-->
-    <!--<string name="progress_msg_b">Please wait.</string>-->
+
+    <string name="register_email_hint">Enter your school e-mail</string>
+    <string name="register_password_hint">Enter a password</string>
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_finish_button">Create Account</string>
+
+    <string name="login_password_hint">Enter your password</string>
+    <string name="login_new_user_msg">First time using the LHS idea app?</string>
+    <string name="login_register_button">New Account</string>
+    <string name="login_finish_button">Login</string>
+
+    <string name="setup_name_hint">Enter your full name</string>
+    <string name="setup_grade_hint">Enter your grade level (9&#8211;12)</string>
+    <string name="setup_finish_button">Save and Continue</string>
+
+    <string name="error_field_msg">Please complete all fields.</string>
+    <string name="error_password_msg">Your passwords do not match.</string>
+
+    <string name="success_auth_msg">Successfully created your account!</string>
+    <string name="success_login_msg">Successfully logged in.</string>
+    <string name="success_setup_msg">Successfully set up your account!</string>
+    <string name="success_logout_msg">Logged out.</string>
+
     <string name="progress_title">Working&#8230;</string>
-    <string name="setup_progress_msg">Setting up your account, please wait.</string>
-    <string name="register_progress_msg">Creating your account, please wait.</string>
-    <string name="login_progress_msg">Logging you in, please wait.</string>
+    <string name="progress_setup_msg">Setting up account, please wait.</string>
+    <string name="progress_register_msg">Creating account, please wait.</string>
+    <string name="progress_login_msg">Logging in, please wait.</string>
 </resources>

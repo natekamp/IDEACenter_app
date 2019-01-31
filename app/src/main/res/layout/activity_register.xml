@@ -27,7 +27,7 @@
         android:layout_marginRight="5dp"
         android:padding="10dp"
         android:ems="10"
-        android:hint="@string/reg_email_hint"
+        android:hint="@string/register_email_hint"
         android:inputType="textEmailAddress"
         android:background="@drawable/inputs" />
 
@@ -42,7 +42,7 @@
         android:layout_marginRight="5dp"
         android:padding="10dp"
         android:ems="10"
-        android:hint="@string/reg_password_hint"
+        android:hint="@string/register_password_hint"
         android:inputType="textPassword"
         android:background="@drawable/inputs" />
 
@@ -57,7 +57,7 @@
         android:layout_marginRight="5dp"
         android:padding="10dp"
         android:ems="10"
-        android:hint="@string/reg_confirm_hint"
+        android:hint="@string/register_confirm_hint"
         android:inputType="textPassword"
         android:background="@drawable/inputs" />
 
@@ -68,7 +68,7 @@
         android:layout_below="@+id/register_confirm"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="@string/reg_finish_button"
+        android:text="@string/register_finish_button"
         android:background="@drawable/button"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"

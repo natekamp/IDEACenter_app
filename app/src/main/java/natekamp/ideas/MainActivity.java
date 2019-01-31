@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
             setSupportActionBar(mToolbar);
-            getSupportActionBar().setTitle("Home");
+            getSupportActionBar().setTitle(R.string.nav_home_title);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
-                Toast.makeText(this, this.getString(R.string.logout_msg), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getString(R.string.success_logout_msg), Toast.LENGTH_SHORT).show();
                 sendToLoginActivity();
                 break;
         }

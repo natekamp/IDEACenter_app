@@ -72,11 +72,11 @@ public class LoginActivity extends AppCompatActivity
         String password = userPassword.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
-            Toast.makeText(this, this.getString(R.string.empty_field_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.error_field_msg), Toast.LENGTH_SHORT).show();
         else
         {
             loadingBar.setTitle(LoginActivity.this.getString(R.string.progress_title));
-            loadingBar.setMessage(LoginActivity.this.getString(R.string.login_progress_msg));
+            loadingBar.setMessage(LoginActivity.this.getString(R.string.progress_login_msg));
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String resultMsg = LoginActivity.this.getString(R.string.login_success_msg);
+                            String resultMsg = LoginActivity.this.getString(R.string.success_login_msg);
                             if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
 
                             loadingBar.dismiss();
