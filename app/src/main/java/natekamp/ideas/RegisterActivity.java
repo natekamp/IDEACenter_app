@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity
 {
@@ -46,6 +47,16 @@ public class RegisterActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) sendToMainActivity();
+    }
+
     private void createNewAccount()
     {
         String email = userEmail.getText().toString();
@@ -58,8 +69,8 @@ public class RegisterActivity extends AppCompatActivity
             Toast.makeText(this, this.getString(R.string.password_match_msg), Toast.LENGTH_SHORT).show();
         else
         {
-            loadingBar.setTitle(RegisterActivity.this.getString(R.string.progress_msg_a));
-            loadingBar.setMessage(RegisterActivity.this.getString(R.string.progress_msg_b));
+            loadingBar.setTitle(RegisterActivity.this.getString(R.string.progress_title));
+            loadingBar.setMessage(RegisterActivity.this.getString(R.string.register_progress_msg));
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
@@ -84,6 +95,14 @@ public class RegisterActivity extends AppCompatActivity
         Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(setupIntent);
+        finish();
+    }
+
+    private void sendToMainActivity()
+    {
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
         finish();
     }
 }

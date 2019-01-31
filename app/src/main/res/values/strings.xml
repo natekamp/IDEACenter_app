@@ -23,7 +23,12 @@
     <string name="password_match_msg">Your passwords do not match.</string>
     <string name="auth_success_msg">Successfully created your account!</string>
     <string name="login_success_msg">Successfully logged in.</string>
+    <string name="setup_success_msg">Successfully set up your account!</string>
     <string name="logout_msg">Logged out.</string>
-    <string name="progress_msg_a">Working&#8230;</string>
-    <string name="progress_msg_b">Please wait.</string>
+    <!--<string name="progress_msg_a">Working&#8230;</string>-->
+    <!--<string name="progress_msg_b">Please wait.</string>-->
+    <string name="progress_title">Working&#8230;</string>
+    <string name="setup_progress_msg">Setting up your account, please wait.</string>
+    <string name="register_progress_msg">Creating your account, please wait.</string>
+    <string name="login_progress_msg">Logging you in, please wait.</string>
 </resources>
