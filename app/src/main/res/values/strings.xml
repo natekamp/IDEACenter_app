@@ -21,20 +21,25 @@
     <string name="login_register_button">New Account</string>
     <string name="login_finish_button">Login</string>
 
+    <string name="setup_picture_msg">(tap to set a profile picture)</string>
     <string name="setup_name_hint">Enter your full name</string>
     <string name="setup_grade_hint">Enter your grade level (9&#8211;12)</string>
     <string name="setup_finish_button">Save and Continue</string>
 
     <string name="error_field_msg">Please complete all fields.</string>
     <string name="error_password_msg">Your passwords do not match.</string>
+    <string name="error_retry_msg">Something went wrong, please try again.</string>
 
     <string name="success_auth_msg">Successfully created your account!</string>
     <string name="success_login_msg">Successfully logged in.</string>
     <string name="success_setup_msg">Successfully set up your account!</string>
     <string name="success_logout_msg">Logged out.</string>
+    <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
+    <string name="success_pfp_msg_b">Profile picture saved.</string>
 
     <string name="progress_title">Working&#8230;</string>
     <string name="progress_setup_msg">Setting up account, please wait.</string>
     <string name="progress_register_msg">Creating account, please wait.</string>
     <string name="progress_login_msg">Logging in, please wait.</string>
+    <string name="progress_pfp_msg">Updating profile picture, please wait.</string>
 </resources>

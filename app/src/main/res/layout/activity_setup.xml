@@ -8,19 +8,31 @@
     tools:context=".SetupActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/setup_icon"
+        android:id="@+id/setup_picture"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:src="@drawable/profile_icon" />
+        android:src="@drawable/profile_picture" />
+
+    <TextView
+        android:id="@+id/setup_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setup_picture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/setup_picture_msg"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/setup_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/setup_icon"
+        android:layout_below="@id/setup_message"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="5dp"
