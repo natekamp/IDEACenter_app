@@ -86,9 +86,13 @@ public class SetupActivity extends AppCompatActivity
             {
                 if (dataSnapshot.exists())
                 {
-                    String profile_picture = dataSnapshot.child("Profile Picture").getValue().toString();
-
-                    Picasso.get().load(profile_picture).placeholder(R.drawable.profile_picture).into(profileImage);
+                    if (dataSnapshot.hasChild("Profile Picture"))
+                    {
+                        String profile_picture = dataSnapshot.child("Profile Picture").getValue().toString();
+                        Picasso.get().load(profile_picture).placeholder(R.drawable.profile_picture).into(profileImage);
+                    }
+                    else
+                        Toast.makeText(SetupActivity.this, SetupActivity.this.getString(R.string.error_missing_pfp_msg_b), Toast.LENGTH_SHORT).show();
                 }
             }
 

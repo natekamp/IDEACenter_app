@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView postList;
     private Toolbar mToolbar;
+    private CircleImageView headerProfilePicture;
+    private TextView headerUsername;
+    String currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,17 +44,52 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+            currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle(R.string.nav_home_title);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+            //are the drawer open/close string values necessary?
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+            View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+            headerProfilePicture = (CircleImageView) navView.findViewById(R.id.nav_profile_picture);
+            headerUsername = (TextView) navView.findViewById(R.id.nav_username);
+
+        usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    if (dataSnapshot.hasChild("Username"))
+                    {
+                        String username = dataSnapshot.child("Username").getValue().toString();
+                        headerUsername.setText(username);
+                    }
+                    else
+                        Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.error_missing_name_msg), Toast.LENGTH_SHORT).show();
+
+                    if (dataSnapshot.hasChild("Profile Picture"))
+                    {
+                        String pfpLink = dataSnapshot.child("Profile Picture").getValue().toString();
+                        Picasso.get().load(pfpLink).placeholder(R.drawable.profile_picture).into(headerProfilePicture);
+                    }
+                    else
+                        Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.error_missing_pfp_msg_a), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
         {

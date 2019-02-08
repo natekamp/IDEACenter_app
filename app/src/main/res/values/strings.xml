@@ -1,6 +1,8 @@
 <resources>
+    //app name for the action bar
     <string name="app_name">idea</string>
 
+    //sidebar menu option titles
     <string name="nav_home_title">Home</string>
     <string name="nav_friends_title">Friends</string>
     <string name="nav_messages_title">Messages</string>
@@ -8,28 +10,37 @@
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
 
+    //these might not be necessary
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 
+    //strings used in RegisterActivity
     <string name="register_email_hint">Enter your school e-mail</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_confirm_hint">Confirm password</string>
     <string name="register_finish_button">Create Account</string>
 
+    //strings used in LoginActivity
     <string name="login_password_hint">Enter your password</string>
     <string name="login_new_user_msg">First time using the LHS idea app?</string>
     <string name="login_register_button">New Account</string>
     <string name="login_finish_button">Login</string>
 
+    //strings used in SetupActivity
     <string name="setup_picture_msg">(tap to set a profile picture)</string>
     <string name="setup_name_hint">Enter your full name</string>
     <string name="setup_grade_hint">Enter your grade level (9&#8211;12)</string>
     <string name="setup_finish_button">Save and Continue</string>
 
+    //error messages
+    <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
+    <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
+    <string name="error_missing_name_msg">Username not found.</string>
     <string name="error_field_msg">Please complete all fields.</string>
     <string name="error_password_msg">Your passwords do not match.</string>
     <string name="error_retry_msg">Something went wrong, please try again.</string>
 
+    //success messages
     <string name="success_auth_msg">Successfully created your account!</string>
     <string name="success_login_msg">Successfully logged in.</string>
     <string name="success_setup_msg">Successfully set up your account!</string>
@@ -37,6 +48,7 @@
     <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
     <string name="success_pfp_msg_b">Profile picture saved.</string>
 
+    //progress messages
     <string name="progress_title">Working&#8230;</string>
     <string name="progress_setup_msg">Setting up account, please wait.</string>
     <string name="progress_register_msg">Creating account, please wait.</string>
