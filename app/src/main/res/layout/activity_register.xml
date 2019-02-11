@@ -16,20 +16,34 @@
         android:layout_marginTop="25dp"
         app:srcCompat="@drawable/idea_app_icon" />
 
-    <EditText
-        android:id="@+id/register_email"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/register_email_suffix"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_logo"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="viewEnd"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/user_email_suffix"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="italic"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_logo"
+        android:layout_toStartOf="@id/register_email_suffix"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:padding="10dp"
+        android:background="@drawable/inputs"
         android:ems="10"
-        android:hint="@string/register_email_hint"
+        android:hint="@string/user_email_hint"
         android:inputType="textEmailAddress"
-        android:background="@drawable/inputs" />
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/register_password"
@@ -42,7 +56,7 @@
         android:layout_marginRight="5dp"
         android:padding="10dp"
         android:ems="10"
-        android:hint="@string/register_password_hint"
+        android:hint="@string/user_password_hint"
         android:inputType="textPassword"
         android:background="@drawable/inputs" />
 

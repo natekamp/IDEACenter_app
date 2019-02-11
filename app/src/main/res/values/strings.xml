@@ -14,15 +14,17 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 
+    //strings used in multiple places
+    <string name="user_email_suffix">\@thompsonschools.org</string>
+    <string name="user_email_hint">E-mail</string>
+    <string name="user_password_hint">Password</string>
+
     //strings used in RegisterActivity
-    <string name="register_email_hint">Enter your school e-mail</string>
-    <string name="register_password_hint">Enter a password</string>
     <string name="register_confirm_hint">Confirm password</string>
-    <string name="register_finish_button">Create Account</string>
+    <string name="register_finish_button">Create New Account</string>
 
     //strings used in LoginActivity
-    <string name="login_password_hint">Enter your password</string>
-    <string name="login_new_user_msg">First time using the LHS idea app?</string>
+    <string name="login_new_user_msg">Don\'t have an account?</string>
     <string name="login_register_button">New Account</string>
     <string name="login_finish_button">Login</string>
 

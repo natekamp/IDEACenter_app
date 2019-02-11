@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private void createNewAccount()
     {
-        String email = userEmail.getText().toString();
+        String email = userEmail.getText().toString()+"@thompsonschools.org";
         String password = userPassword.getText().toString();
         String confirm = userConfirm.getText().toString();
 

@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity
 
     private void loginToUserAccount()
     {
-        String email = userEmail.getText().toString();
+        String email = userEmail.getText().toString()+"@thompsonschools.org";
         String password = userPassword.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
