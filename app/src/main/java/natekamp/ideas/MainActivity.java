@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
             currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle(R.string.nav_home_title);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
@@ -100,6 +100,13 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
+        /* Post Button
+         * declare in MainActivity class
+         * initialize in onCreate method
+         * setOnClickListener here
+         * implement sendToPostActivity
+         */
     }
 
     @Override
@@ -142,10 +149,17 @@ public class MainActivity extends AppCompatActivity
     private void sendToLoginActivity()
     {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         startActivity(loginIntent);
         finish();
+    }
+
+    private void sendToPostActivity()
+    {
+        Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
+
+        startActivity(postIntent);
     }
 
     @Override

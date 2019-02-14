@@ -19,6 +19,10 @@
     <string name="user_email_hint">E-mail</string>
     <string name="user_password_hint">Password</string>
 
+    //strings used in MainActivity
+    <string name="main_statement_title">&#8212; Mission Statement &#8212;</string>
+    <string name="main_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
+
     //strings used in RegisterActivity
     <string name="register_confirm_hint">Confirm password</string>
     <string name="register_finish_button">Create New Account</string>
@@ -33,6 +37,9 @@
     <string name="setup_name_hint">Enter your full name</string>
     <string name="setup_grade_hint">Enter your grade level (9&#8211;12)</string>
     <string name="setup_finish_button">Save and Continue</string>
+
+    //strings used in PostActivity
+    <string name="post_toolbar_title">New Post</string>
 
     //error messages
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
