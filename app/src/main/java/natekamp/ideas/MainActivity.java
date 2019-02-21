@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private RecyclerView postList;
+    private RecyclerView subjectList;
     private Toolbar mToolbar;
     private CircleImageView headerProfilePicture;
     private TextView headerUsername;
@@ -44,21 +45,31 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-            currentUserID = mAuth.getCurrentUser().getUid();
+        currentUserID = mAuth.getCurrentUser().getUid();
+
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setTitle(R.string.nav_home_title);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(R.string.nav_home_title);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-            //are the drawer open/close string values necessary?
-            drawerLayout.addDrawerListener(actionBarDrawerToggle);
-            actionBarDrawerToggle.syncState();
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //are the drawer open/close string values necessary?
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-            View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
-            headerProfilePicture = (CircleImageView) navView.findViewById(R.id.nav_profile_picture);
-            headerUsername = (TextView) navView.findViewById(R.id.nav_username);
+        View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        headerProfilePicture = (CircleImageView) navView.findViewById(R.id.nav_profile_picture);
+        headerUsername = (TextView) navView.findViewById(R.id.nav_username);
+
+        subjectList = (RecyclerView) findViewById(R.id.main_subjects_list);
+        subjectList.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        subjectList.setLayoutManager(linearLayoutManager);
 
         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,6 +118,13 @@ public class MainActivity extends AppCompatActivity
          * setOnClickListener here
          * implement sendToPostActivity
          */
+
+        displaySubjectList();
+    }
+
+    private void displaySubjectList()
+    {
+        //somethinggggggggggg
     }
 
     @Override

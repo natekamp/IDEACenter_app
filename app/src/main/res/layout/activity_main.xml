@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawable_layout"
@@ -25,87 +26,40 @@
             android:layout_below="@+id/main_toolbar">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/post_list"
+                android:id="@+id/main_subjects_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
 
-        <GridLayout
-            android:id="@+id/main_group_grid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:rowCount="2"
-            android:columnCount="2">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_toolbar"
+            android:padding="10dp"
+            >
 
-            <Button
-                android:id="@+id/main_calendar_group"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="calendar"/>
+            <TextView
+                android:id="@+id/main_statement_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/main_statement_title"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
 
-            <Button
-                android:id="@+id/main_diy_group"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="diy"/>
+            <TextView
+                android:id="@+id/main_statement_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_statement_title"
+                android:text="@string/main_statement_msg"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                />
 
-            <Button
-                android:id="@+id/main_tour_group"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="tour"/>
-
-            <Button
-                android:id="@+id/main_subjects_group"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="subjects"/>
-
-        </GridLayout>
-
-        <TextView
-            android:id="@+id/main_statement_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@id/main_group_grid"
-            android:layout_alignEnd="@id/main_group_grid"
-            android:layout_below="@id/main_group_grid"
-            android:text="@string/main_statement_title"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:id="@+id/main_statement_msg"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@id/main_group_grid"
-            android:layout_alignEnd="@id/main_group_grid"
-            android:layout_below="@id/main_statement_title"
-            android:text="@string/main_statement_msg"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            />
-
+        </RelativeLayout>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

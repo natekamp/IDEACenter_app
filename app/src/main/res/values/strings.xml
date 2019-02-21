@@ -14,6 +14,11 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 
+    //subject names
+    <string name="subject_name_robotics">Robotics</string>
+    <string name="subject_name_culinary">Culinary</string>
+    <string name="subject_name_subject3">Subject3</string>
+
     //strings used in multiple places
     <string name="user_email_suffix">\@thompsonschools.org</string>
     <string name="user_email_hint">E-mail</string>
@@ -40,6 +45,7 @@
 
     //strings used in PostActivity
     <string name="post_toolbar_title">New Post</string>
+    <string name="post_choose_video">Select a Video to Upload</string>
 
     //error messages
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>

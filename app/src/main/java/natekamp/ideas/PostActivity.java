@@ -9,6 +9,7 @@ import android.view.MenuItem;
 public class PostActivity extends AppCompatActivity
 {
     private Toolbar mToolbar;
+    final static int Gallery_Vid = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +23,17 @@ public class PostActivity extends AppCompatActivity
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle(R.string.post_toolbar_title);
     }
+
+    public void getMedia()
+    {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("video/*");
+        startActivityForResult(
+                Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_choose_video)),
+                Gallery_Vid);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
