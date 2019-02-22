@@ -10,10 +10,6 @@
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
 
-    //these might not be necessary
-    <string name="drawer_open">Drawer Open</string>
-    <string name="drawer_close">Drawer Close</string>
-
     //subject names
     <string name="subject_name_robotics">Robotics</string>
     <string name="subject_name_culinary">Culinary</string>
@@ -27,6 +23,8 @@
     //strings used in MainActivity
     <string name="main_statement_title">&#8212; Mission Statement &#8212;</string>
     <string name="main_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 
     //strings used in RegisterActivity
     <string name="register_confirm_hint">Confirm password</string>
@@ -34,7 +32,7 @@
 
     //strings used in LoginActivity
     <string name="login_new_user_msg">Don\'t have an account?</string>
-    <string name="login_register_button">New Account</string>
+    <string name="login_register_button">Register Me!</string>
     <string name="login_finish_button">Login</string>
 
     //strings used in SetupActivity
@@ -44,8 +42,11 @@
     <string name="setup_finish_button">Save and Continue</string>
 
     //strings used in PostActivity
-    <string name="post_toolbar_title">New Post</string>
-    <string name="post_choose_video">Select a Video to Upload</string>
+    <string name="post_video_toolbar_title">Upload Video</string>
+    <string name="post_video_choose">Select a Video to Upload</string>
+    <string name="post_video_title_hint">Give your video a title</string>
+    <string name="post_video_desc_hint">Give your video a description</string>
+    <string name="post_event_toolbar_title">Create Event</string>
 
     //error messages
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>

@@ -10,6 +10,7 @@ public class PostActivity extends AppCompatActivity
 {
     private Toolbar mToolbar;
     final static int Gallery_Vid = 1;
+    String postType = getIntent().getStringExtra("EXTRA_POST_TYPE");
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,13 +25,13 @@ public class PostActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.post_toolbar_title);
     }
 
-    public void getMedia()
+    public void getVideo()
     {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("video/*");
         startActivityForResult(
-                Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_choose_video)),
+                Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_video_choose)),
                 Gallery_Vid);
     }
 
@@ -41,6 +42,7 @@ public class PostActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id==android.R.id.home) sendToMainActivity();
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -48,5 +50,6 @@ public class PostActivity extends AppCompatActivity
     {
         Intent mainIntent = new Intent(PostActivity.this, MainActivity.class);
         startActivity(mainIntent);
+        finish();
     }
 }

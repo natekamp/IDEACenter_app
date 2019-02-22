@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity
          * declare in MainActivity class
          * initialize in onCreate method
          * setOnClickListener here
-         * implement sendToPostActivity
          */
 
         displaySubjectList();
@@ -168,16 +167,15 @@ public class MainActivity extends AppCompatActivity
     {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
         startActivity(loginIntent);
         finish();
     }
 
-    private void sendToPostActivity()
-    {
-        Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
-
-        startActivity(postIntent);
+    private void sendToPostActivity(String postType)
+    { //postType can be "video" or "event"
+         Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
+         postIntent.putExtra("EXTRA_POST_TYPE", postType);
+         startActivity(postIntent);
     }
 
     @Override
