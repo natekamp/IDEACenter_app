@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void sendToPostActivity(String postType)
-    { //postType can be "video" or "event"
+    { //postType: 0|nothing -> event, 1 -> video
          Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
          postIntent.putExtra("EXTRA_POST_TYPE", postType);
          startActivity(postIntent);

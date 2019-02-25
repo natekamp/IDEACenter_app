@@ -10,5 +10,4 @@
     android:textColor="@color/colorAccent"
     android:gravity="bottom"
     android:text="robotics"
-    android:background="@drawable/header_background"
-    />
+    android:background="@drawable/header_background"/>

@@ -4,32 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/upload_video_button"
-        android:layout_width="400dp"
-        android:layout_height="225dp"
-        android:background="@drawable/upload_video_image"
-        android:scaleType="fitCenter"/>
-
     <EditText
-        android:id="@+id/upload_video_title"
+        android:id="@+id/upload_event_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/upload_video_button"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/inputs"
         android:ems="10"
-        android:hint="@string/post_video_title_hint"
+        android:hint="@string/post_event_title_hint"
         android:padding="10dp"/>
 
     <EditText
-        android:id="@+id/upload_video_desc"
+        android:id="@+id/upload_event_desc"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_below="@id/upload_video_title"
+        android:layout_below="@id/upload_event_title"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -37,7 +28,7 @@
         android:background="@drawable/inputs"
         android:ems="10"
         android:scrollHorizontally="false"
-        android:hint="@string/post_video_desc_hint"
+        android:hint="@string/post_event_desc_hint"
         android:padding="10dp"/>
 
 </RelativeLayout>

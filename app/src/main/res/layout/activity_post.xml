@@ -4,20 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostActivity">
+    tools:context=".PostActivity"
+    android:background="@drawable/gradient_background">
 
     <include
         android:id="@+id/post_toolbar"
-        layout="@layout/toolbar_layout"
-        />
+        layout="@layout/toolbar_layout"/>
 
-    <include
+    <ViewStub
         android:id="@+id/post_skeleton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/post_toolbar"
-        android:layout_margin="10dp"
-        layout="@layout/post_video_layout"
-        />
+        android:layout_margin="10dp"/>
 
+    <Button
+        android:id="@+id/post_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:layout_margin="25dp"
+        android:text="@string/post_finish_button"
+        android:padding="10dp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"/>
 </RelativeLayout>

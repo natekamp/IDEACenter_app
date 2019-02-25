@@ -42,11 +42,14 @@
     <string name="setup_finish_button">Save and Continue</string>
 
     //strings used in PostActivity
+    <string name="post_finish_button">Finish and Post</string>
     <string name="post_video_toolbar_title">Upload Video</string>
     <string name="post_video_choose">Select a Video to Upload</string>
     <string name="post_video_title_hint">Give your video a title</string>
     <string name="post_video_desc_hint">Give your video a description</string>
     <string name="post_event_toolbar_title">Create Event</string>
+    <string name="post_event_title_hint">Give your event a title</string>
+    <string name="post_event_desc_hint">Give your event a description</string>
 
     //error messages
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>

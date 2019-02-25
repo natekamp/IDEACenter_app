@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewStub;
+import android.widget.Button;
 
 public class PostActivity extends AppCompatActivity
 {
     private Toolbar mToolbar;
+    private Button finishButton;
+    private ViewStub postSkeleton;
     final static int Gallery_Vid = 1;
-    String postType = getIntent().getStringExtra("EXTRA_POST_TYPE");
+    int postType = getIntent().getIntExtra("EXTRA_POST_TYPE", 0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,6 +28,12 @@ public class PostActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle(R.string.post_toolbar_title);
+        postSkeleton = (ViewStub) findViewById(R.id.post_skeleton);
+            postSkeleton.setLayoutResource(
+                    postType==1 ? R.layout.post_video_layout : R.layout.post_event_layout
+            );
+            postSkeleton.inflate();
+
     }
 
     public void getVideo()

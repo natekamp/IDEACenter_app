@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        app:srcCompat="@drawable/idea_app_icon" />
+        app:srcCompat="@drawable/idea_app_icon"/>
 
     <TextView
         android:id="@+id/register_email_suffix"
@@ -43,7 +43,7 @@
         android:ems="10"
         android:hint="@string/user_email_hint"
         android:inputType="textEmailAddress"
-        android:padding="10dp" />
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/register_password"
@@ -58,7 +58,7 @@
         android:ems="10"
         android:hint="@string/user_password_hint"
         android:inputType="textPassword"
-        android:background="@drawable/inputs" />
+        android:background="@drawable/inputs"/>
 
     <EditText
         android:id="@+id/register_confirm"
@@ -73,7 +73,7 @@
         android:ems="10"
         android:hint="@string/register_confirm_hint"
         android:inputType="textPassword"
-        android:background="@drawable/inputs" />
+        android:background="@drawable/inputs"/>
 
     <Button
         android:id="@+id/register_create"
@@ -86,5 +86,5 @@
         android:background="@drawable/button"
         android:textColor="@color/colorAccent"
         android:textStyle="bold"
-        android:padding="10dp" />
+        android:padding="10dp"/>
 </RelativeLayout>
