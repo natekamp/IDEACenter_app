@@ -171,10 +171,10 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
-    private void sendToPostActivity(String postType)
-    { //postType: 0|nothing -> event, 1 -> video
+    private void sendToPostActivity(boolean postTypeIsVideo)
+    {
          Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
-         postIntent.putExtra("EXTRA_POST_TYPE", postType);
+         postIntent.putExtra("EXTRA_POST_TYPE", postTypeIsVideo);
          startActivity(postIntent);
     }
 

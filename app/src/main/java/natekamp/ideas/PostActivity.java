@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class PostActivity extends AppCompatActivity
 {
     private Toolbar mToolbar;
     private Button finishButton;
-    private ViewStub postSkeleton;
-    final static int Gallery_Vid = 1;
-    int postType = getIntent().getIntExtra("EXTRA_POST_TYPE", 0);
+    private ImageButton attachmentButton;
+    private EditText titleText, descriptionText;
+    private final static int Gallery_Img = 1, Gallery_Pic = 2;
+    boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_POST_TYPE", true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,12 +29,22 @@ public class PostActivity extends AppCompatActivity
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(R.string.post_toolbar_title);
-        postSkeleton = (ViewStub) findViewById(R.id.post_skeleton);
-            postSkeleton.setLayoutResource(
-                    postType==1 ? R.layout.post_video_layout : R.layout.post_event_layout
+            getSupportActionBar().setTitle(
+                    postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title
             );
-            postSkeleton.inflate();
+        attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
+        titleText = (EditText) findViewById(R.id.post_title);
+        descriptionText = (EditText) findViewById(R.id.post_description);
+
+        attachmentButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (postTypeIsVideo) getVideo();
+                else getImage();
+            }
+        });
 
     }
 
@@ -41,9 +53,17 @@ public class PostActivity extends AppCompatActivity
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("video/*");
-        startActivityForResult(
-                Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_video_choose)),
-                Gallery_Vid);
+        startActivityForResult(galleryIntent, Gallery_Img);
+    }
+    public void getImage()
+    {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, Gallery_Pic);
+//        startActivityForResult(
+//                Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_image_choose)),
+//                Gallery_Pic);
     }
 
 

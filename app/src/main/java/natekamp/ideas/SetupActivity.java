@@ -43,7 +43,7 @@ public class SetupActivity extends AppCompatActivity
     private CircleImageView profileImage;
     private ProgressDialog loadingBar;
     String currentUserID;
-    final static int Gallery_Pic = 1;
+    private final static int Gallery_Img = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,7 +76,7 @@ public class SetupActivity extends AppCompatActivity
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, Gallery_Pic);
+                startActivityForResult(galleryIntent, Gallery_Img);
             }
         });
 
@@ -109,7 +109,7 @@ public class SetupActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== Gallery_Pic && resultCode==RESULT_OK && data!=null)
+        if (requestCode== Gallery_Img && resultCode==RESULT_OK && data!=null)
         {
             Uri imageUri = data.getData(); //I guess this is needed for the CropImage activity
 
