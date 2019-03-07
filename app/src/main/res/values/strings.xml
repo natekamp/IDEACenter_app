@@ -1,8 +1,8 @@
 <resources>
-    //app name for the action bar
+    <!--app name for the action bar-->
     <string name="app_name">idea</string>
 
-    //sidebar menu option titles
+    <!--sidebar menu option titles-->
     <string name="nav_home_title">Home</string>
     <string name="nav_friends_title">Friends</string>
     <string name="nav_messages_title">Messages</string>
@@ -10,38 +10,38 @@
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
 
-    //subject names
+    <!--subject names-->
     <string name="subject_name_robotics">Robotics</string>
     <string name="subject_name_culinary">Culinary</string>
     <string name="subject_name_subject3">Subject3</string>
 
-    //strings used in multiple places
+    <!--strings used in multiple places-->
     <string name="user_email_suffix">\@thompsonschools.org</string>
     <string name="user_email_hint">E-mail</string>
     <string name="user_password_hint">Password</string>
 
-    //strings used in MainActivity
+    <!--strings used in MainActivity-->
     <string name="main_statement_title">&#8212; Mission Statement &#8212;</string>
     <string name="main_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 
-    //strings used in RegisterActivity
+    <!--strings used in RegisterActivity-->
     <string name="register_confirm_hint">Confirm password</string>
     <string name="register_finish_button">Create New Account</string>
 
-    //strings used in LoginActivity
+    <!--strings used in LoginActivity-->
     <string name="login_new_user_msg">Don\'t have an account?</string>
     <string name="login_register_button">Register Me!</string>
     <string name="login_finish_button">Login</string>
 
-    //strings used in SetupActivity
+    <!--strings used in SetupActivity-->
     <string name="setup_picture_msg">(tap to set a profile picture)</string>
     <string name="setup_name_hint">Enter your full name</string>
     <string name="setup_grade_hint">Enter your grade level (9&#8211;12)</string>
     <string name="setup_finish_button">Save and Continue</string>
 
-    //strings used in PostActivity
+    <!--strings used in PostActivity-->
     <string name="post_finish_button">Finish and Post</string>
     <string name="post_video_toolbar_title">Upload Video</string>
     <string name="post_event_toolbar_title">Create Event</string>
@@ -50,26 +50,33 @@
     <string name="post_title_hint">Give your post a title</string>
     <string name="post_description_hint">Give your post a description</string>
 
-    //error messages
+    <!--error messages-->
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
     <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
     <string name="error_missing_name_msg">Username not found.</string>
     <string name="error_field_msg">Please complete all fields.</string>
     <string name="error_password_msg">Your passwords do not match.</string>
     <string name="error_retry_msg">Something went wrong, please try again.</string>
+    <string name="error_missing_vid">Please select a video to post.</string>
+    <string name="error_missing_title">Please give your post a title.</string>
 
-    //success messages
+    <!--success messages-->
     <string name="success_auth_msg">Successfully created your account!</string>
     <string name="success_login_msg">Successfully logged in.</string>
     <string name="success_setup_msg">Successfully set up your account!</string>
     <string name="success_logout_msg">Logged out.</string>
     <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
     <string name="success_pfp_msg_b">Profile picture saved.</string>
+    <string name="success_upload_attachment_msg">Attachment uploaded&#8230;</string>
+    <string name="success_post_video_msg">Video posted!</string>
+    <string name="success_post_event_msg">Event posted!</string>
 
-    //progress messages
+    <!--progress messages-->
     <string name="progress_title">Working&#8230;</string>
     <string name="progress_setup_msg">Setting up account, please wait.</string>
     <string name="progress_register_msg">Creating account, please wait.</string>
     <string name="progress_login_msg">Logging in, please wait.</string>
     <string name="progress_pfp_msg">Updating profile picture, please wait.</string>
+    <string name="progress_post_video_msg">Posting video, please wait.</string>
+    <string name="progress_post_event_msg">Posting event, please wait.</string>
 </resources>
