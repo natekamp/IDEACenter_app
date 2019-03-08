@@ -29,13 +29,15 @@ public class MainActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
-    private NavigationView navigationView;
+
+    private Toolbar mToolbar;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private RecyclerView subjectList;
-    private Toolbar mToolbar;
+    private NavigationView navigationView;
     private CircleImageView headerProfilePicture;
     private TextView headerUsername;
+    private RecyclerView subjectList;
+
     String currentUserID;
 
     @Override
@@ -45,32 +47,33 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserID = mAuth.getCurrentUser().getUid();
-
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
+    //toolbar
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.nav_home_title);
-
+    //drawer menu
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
-        //are the drawer open/close string values necessary?
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    //inside drawer
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
         headerProfilePicture = (CircleImageView) navView.findViewById(R.id.nav_profile_picture);
         headerUsername = (TextView) navView.findViewById(R.id.nav_username);
-
+    //subject list
         subjectList = (RecyclerView) findViewById(R.id.main_subjects_list);
         subjectList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         subjectList.setLayoutManager(linearLayoutManager);
 
+        currentUserID = mAuth.getCurrentUser().getUid();
+
+
+        //get current username and profile picture from database and put into drawer header
         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -98,10 +101,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-
+                //do nothing
             }
         });
 
+        //listener for menu items in drawer
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
         {
             @Override
@@ -112,7 +116,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        /* Post Button
+        /* TODO (maybe)
+         * Post Button:
          * declare in MainActivity class
          * initialize in onCreate method
          * setOnClickListener here
@@ -123,7 +128,10 @@ public class MainActivity extends AppCompatActivity
 
     private void displaySubjectList()
     {
-        //somethinggggggggggg
+        /* TODO
+         * get main_subject_list_item.xml to display
+         * as separate subjects in subjectList
+         */
     }
 
     @Override
@@ -131,26 +139,26 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser_check = mAuth.getCurrentUser();
 
-        if (currentUser == null) sendToLoginActivity();
+        if (currentUser_check == null) sendToLoginActivity();
         else checkIfUserExists();
     }
 
     private void checkIfUserExists()
     {
-        final String currentUser_id = mAuth.getCurrentUser().getUid();
+        final String currentUserID_check = mAuth.getCurrentUser().getUid();
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                if (!dataSnapshot.hasChild(currentUser_id)) sendToSetupActivity();
+                if (!dataSnapshot.hasChild(currentUserID_check)) sendToSetupActivity();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-                //Do nothing I guess
+                //do nothing
             }
         });
     }
@@ -185,6 +193,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    //do different things for each menu option in drawer
     private void UserMenuSelector(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:

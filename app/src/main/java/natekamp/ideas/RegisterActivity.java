@@ -20,8 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class RegisterActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
+
     private EditText userEmail, userPassword, userConfirm;
     private Button createButton;
+
     private ProgressDialog loadingBar;
 
     @Override
@@ -31,11 +33,14 @@ public class RegisterActivity extends AppCompatActivity
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+
         userEmail = (EditText) findViewById(R.id.register_email);
         userPassword = (EditText) findViewById(R.id.register_password);
         userConfirm = (EditText) findViewById(R.id.register_confirm);
         createButton = (Button) findViewById(R.id.register_create);
+
         loadingBar = new ProgressDialog(this);
+
 
         createButton.setOnClickListener(new View.OnClickListener()
         {
@@ -78,8 +83,9 @@ public class RegisterActivity extends AppCompatActivity
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String resultMsg = RegisterActivity.this.getString(R.string.success_auth_msg);
-                            if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
+                            String resultMsg = task.isSuccessful() ?
+                                    RegisterActivity.this.getString(R.string.success_auth_msg) :
+                                    "Error: " + task.getException().getMessage();
 
                             loadingBar.dismiss();
                             Toast.makeText(RegisterActivity.this, resultMsg, Toast.LENGTH_SHORT).show();

@@ -38,12 +38,14 @@ public class SetupActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
     private StorageReference userImageRef;
+
     private EditText userName, userGrade;
     private Button saveButton;
     private CircleImageView profileImage;
-    private ProgressDialog loadingBar;
+
     String currentUserID;
     private final static int Gallery_Img = 1;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,14 +54,17 @@ public class SetupActivity extends AppCompatActivity
         setContentView(R.layout.activity_setup);
 
         mAuth = FirebaseAuth.getInstance();
-            currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         userImageRef = FirebaseStorage.getInstance().getReference().child("Profile Pictures");
+
         userName = (EditText) findViewById(R.id.setup_name);
         userGrade = (EditText) findViewById(R.id.setup_grade);
         saveButton = (Button) findViewById(R.id.setup_save);
+
         profileImage = (CircleImageView) findViewById(R.id.setup_picture);
+        currentUserID = mAuth.getCurrentUser().getUid();
         loadingBar = new ProgressDialog(this);
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +134,7 @@ public class SetupActivity extends AppCompatActivity
                 loadingBar.setCanceledOnTouchOutside(true);
 
                 Uri resultUri = result.getUri();
-                StorageReference filePath = userImageRef.child(currentUserID+".jpg");
+                StorageReference filePath = userImageRef.child(currentUserID+".png");
 
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -150,9 +155,9 @@ public class SetupActivity extends AppCompatActivity
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task)
                                                 {
-                                                    String resultMsg = SetupActivity.this.getString(R.string.success_pfp_msg_b);
-                                                    if (!task.isSuccessful())
-                                                        resultMsg = "Error: " + task.getException().getMessage();
+                                                    String resultMsg = task.isSuccessful() ?
+                                                            SetupActivity.this.getString(R.string.success_pfp_msg_b) :
+                                                            "Error: " + task.getException().getMessage();
 
                                                     loadingBar.dismiss();
                                                     Toast.makeText(SetupActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
@@ -194,13 +199,13 @@ public class SetupActivity extends AppCompatActivity
             HashMap userMap = new HashMap();
                 userMap.put("Username", username);
                 userMap.put("Grade", grade);
-                userMap.put("user data 3", "put data here");
             usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task)
                 {
-                    String resultMsg = SetupActivity.this.getString(R.string.success_setup_msg);
-                    if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
+                    String resultMsg = task.isSuccessful() ?
+                            SetupActivity.this.getString(R.string.success_setup_msg) :
+                            "Error: " + task.getException().getMessage();
 
                     loadingBar.dismiss();
                     Toast.makeText(SetupActivity.this, resultMsg, Toast.LENGTH_SHORT).show();

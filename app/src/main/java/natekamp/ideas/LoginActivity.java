@@ -20,8 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
+
     private Button loginButton, registerButton;
     private EditText userEmail, userPassword;
+
     private ProgressDialog loadingBar;
 
     @Override
@@ -31,11 +33,14 @@ public class LoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+
         loginButton = (Button) findViewById(R.id.login_login);
         registerButton = (Button) findViewById(R.id.login_register);
         userEmail = (EditText) findViewById(R.id.login_email);
         userPassword = (EditText) findViewById(R.id.login_password);
+
         loadingBar = new ProgressDialog(this);
+
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {
@@ -84,8 +89,9 @@ public class LoginActivity extends AppCompatActivity
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            String resultMsg = LoginActivity.this.getString(R.string.success_login_msg);
-                            if (!task.isSuccessful()) resultMsg = "Error: " + task.getException().getMessage();
+                            String resultMsg = task.isSuccessful() ?
+                                    LoginActivity.this.getString(R.string.success_login_msg) :
+                                    "Error: " + task.getException().getMessage();
 
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
