@@ -46,7 +46,7 @@ public class PostActivity extends AppCompatActivity
 
     boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_POST_TYPE", true);
     private Uri attachmentUri;
-    private final static int Gallery_Vid = 1, Gallery_Img = 2;
+    private final static int Gallery_Media = 1;
 
     private String postTitle, postDescription;
     String currentUserID, attachmentValue, currentDate, currentTime, postName;
@@ -64,13 +64,15 @@ public class PostActivity extends AppCompatActivity
         postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("Events");
         mAuth = FirebaseAuth.getInstance();
 
+        //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle(
-                    postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title
-            );
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(
+                postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title
+        );
+        //other elements
         attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
         finishButton = (Button) findViewById(R.id.post_finish);
         titleText = (EditText) findViewById(R.id.post_title);
@@ -106,14 +108,14 @@ public class PostActivity extends AppCompatActivity
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("video/*");
-        startActivityForResult(galleryIntent, Gallery_Vid);
+        startActivityForResult(galleryIntent, Gallery_Media);
     }
     public void getImage()
     {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, Gallery_Img);
+        startActivityForResult(galleryIntent, Gallery_Media);
         //startActivityForResult(Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_image_choose)), Gallery_Img);
     }
 
@@ -261,8 +263,11 @@ public class PostActivity extends AppCompatActivity
 
         if (resultCode==RESULT_OK && data!=null)
         {
-            attachmentUri = data.getData();
-            attachmentButton.setImageURI(attachmentUri);
+            if (requestCode==Gallery_Media)
+            {
+                attachmentUri = data.getData();
+                attachmentButton.setImageURI(attachmentUri);
+            }
         }
     }
 

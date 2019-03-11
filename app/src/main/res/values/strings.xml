@@ -79,4 +79,5 @@
     <string name="progress_pfp_msg">Updating profile picture, please wait.</string>
     <string name="progress_post_video_msg">Posting video, please wait.</string>
     <string name="progress_post_event_msg">Posting event, please wait.</string>
+
 </resources>

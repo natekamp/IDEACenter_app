@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#AAAAAA"/>
+
         </FrameLayout>
 
         <RelativeLayout
@@ -68,5 +69,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_menu">
+
+        <!-- stuff might go here at some point -->
+
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>
