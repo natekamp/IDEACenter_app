@@ -114,6 +114,5 @@ public class LoginActivity extends AppCompatActivity
     {
         Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(registerIntent);
-        //removing finish() allows the back button to go to the login activity instead of exiting the app
     }
 }

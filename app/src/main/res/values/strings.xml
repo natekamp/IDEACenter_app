@@ -11,9 +11,11 @@
     <string name="nav_profile_title">Profile</string>
 
     <!--subject names-->
-    <string name="subject_name_robotics">Robotics</string>
+    <string name="subject_calendar">Calendar</string>
+    <string name="subject_name_art">Art</string>
+    <string name="subject_name_business">Business</string>
     <string name="subject_name_culinary">Culinary</string>
-    <string name="subject_name_subject3">Subject3</string>
+    <string name="subject_name_electronics">Electronics</string>
 
     <!--strings used in multiple places-->
     <string name="user_email_hint">Email</string>

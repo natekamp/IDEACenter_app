@@ -35,9 +35,10 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity
 {
+    private FirebaseAuth mAuth;
+    String currentUserID;
     private StorageReference postAttachmentsRef;
     private DatabaseReference usersRef, postedVideosRef, postedEventsRef;
-    private FirebaseAuth mAuth;
 
     private Toolbar mToolbar;
     private Button finishButton;
@@ -49,7 +50,7 @@ public class PostActivity extends AppCompatActivity
     private final static int Gallery_Media = 1;
 
     private String postTitle, postDescription;
-    String currentUserID, attachmentValue, currentDate, currentTime, postName;
+    String attachmentValue, currentDate, currentTime, postName;
     private ProgressDialog loadingBar;
 
     @Override
@@ -58,27 +59,25 @@ public class PostActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         postAttachmentsRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("Videos");
         postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("Events");
-        mAuth = FirebaseAuth.getInstance();
 
-        //toolbar
+    //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(
-                postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title
-        );
-        //other elements
+        getSupportActionBar().setTitle(postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title);
+    //other elements
         attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
         finishButton = (Button) findViewById(R.id.post_finish);
         titleText = (EditText) findViewById(R.id.post_title);
         descriptionText = (EditText) findViewById(R.id.post_description);
 
-        currentUserID = mAuth.getCurrentUser().getUid();
         loadingBar = new ProgressDialog(this);
 
 
@@ -138,14 +137,15 @@ public class PostActivity extends AppCompatActivity
         else
         {
             loadingBar.setTitle(PostActivity.this.getString(R.string.progress_title));
-            loadingBar.setMessage(PostActivity.this.getString(postTypeIsVideo ?
+            loadingBar.setMessage(
+                    PostActivity.this.getString(postTypeIsVideo ?
                     R.string.progress_post_video_msg :
                     R.string.progress_post_event_msg
             ));
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
-            uploadAttachment(attachmentUri!=null && !postTypeIsVideo);
+            uploadAttachment(!postTypeIsVideo && attachmentUri==null);
         }
     }
 
@@ -240,9 +240,9 @@ public class PostActivity extends AppCompatActivity
                                                 PostActivity.this.getString(R.string.success_post_event_msg) :
                                                 "Error: " + task.getException().getMessage();
 
+                                        loadingBar.dismiss();
                                         Toast.makeText(PostActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
 
-                                        loadingBar.dismiss();
                                         sendToMainActivity();
                                     }
                                 });

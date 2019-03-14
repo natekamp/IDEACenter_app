@@ -36,6 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SetupActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
+    String currentUserID;
     private DatabaseReference usersRef;
     private StorageReference userImageRef;
 
@@ -43,8 +44,6 @@ public class SetupActivity extends AppCompatActivity
     private Button saveButton;
     private CircleImageView profileImage;
 
-    String currentUserID;
-    private final static int Gallery_Img = 1;
     private ProgressDialog loadingBar;
 
     @Override
@@ -54,12 +53,12 @@ public class SetupActivity extends AppCompatActivity
         setContentView(R.layout.activity_setup);
 
         mAuth = FirebaseAuth.getInstance();
-
-        profileImage = (CircleImageView) findViewById(R.id.setup_picture);
         currentUserID = mAuth.getCurrentUser().getUid();
-        loadingBar = new ProgressDialog(this);
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         userImageRef = FirebaseStorage.getInstance().getReference().child("Profile Pictures");
+
+        profileImage = (CircleImageView) findViewById(R.id.setup_picture);
+        loadingBar = new ProgressDialog(this);
 
         userName = (EditText) findViewById(R.id.setup_name);
         userGrade = (EditText) findViewById(R.id.setup_grade);

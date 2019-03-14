@@ -109,8 +109,7 @@
             android:layout_margin="5dp"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="DESCRIPTION"/>
+            android:textColor="@color/colorPrimaryDark"/>
         
     </LinearLayout>
 

@@ -23,11 +23,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements SubjectListRecyclerAdapter.ItemClickListener
 {
     private FirebaseAuth mAuth;
+    String currentUserID;
     private DatabaseReference usersRef;
 
     private Toolbar mToolbar;
@@ -36,9 +39,10 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private CircleImageView headerProfilePicture;
     private TextView headerUsername;
-    private RecyclerView subjectList;
 
-    String currentUserID;
+    private RecyclerView subjectList;
+    private ArrayList<String> subjectNames;
+    private SubjectListRecyclerAdapter sLAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
     //toolbar
@@ -68,10 +73,12 @@ public class MainActivity extends AppCompatActivity
         subjectList = (RecyclerView) findViewById(R.id.main_subjects_list);
         subjectList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         subjectList.setLayoutManager(linearLayoutManager);
 
-        currentUserID = mAuth.getCurrentUser().getUid();
 
+        displaySubjectList();
 
         //get current username and profile picture from database and put into drawer header
         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
@@ -116,22 +123,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        /* TODO (maybe)
-         * Post Button:
-         * declare in MainActivity class
-         * initialize in onCreate method
-         * setOnClickListener here
-         */
-
-        displaySubjectList();
-    }
-
-    private void displaySubjectList()
-    {
-        /* TODO
-         * get main_subject_list_item.xml to display
-         * as separate subjects in subjectList
-         */
+        // TODO: Post Button
+            // declare in MainActivity, initialize in onCreate, setOnClickListener here
     }
 
     @Override
@@ -184,6 +177,32 @@ public class MainActivity extends AppCompatActivity
          Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
          postIntent.putExtra("EXTRA_POST_TYPE", postTypeIsVideo);
          startActivity(postIntent);
+    }
+
+    private void sendToSubjectActivity(String subjectName)
+    {
+        Intent subjectIntent = new Intent(MainActivity.this, SubjectActivity.class);
+        subjectIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
+        startActivity(subjectIntent);
+    }
+
+    private void displaySubjectList()
+    {
+        subjectNames = new ArrayList<>();
+
+        subjectNames.add(this.getString(R.string.subject_name_art));
+        subjectNames.add(this.getString(R.string.subject_name_business));
+        subjectNames.add(this.getString(R.string.subject_name_culinary));
+        subjectNames.add(this.getString(R.string.subject_name_electronics));
+
+        sLAdapter = new SubjectListRecyclerAdapter(this, subjectNames);
+        sLAdapter.setClickListener(this);
+        subjectList.setAdapter(sLAdapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        sendToSubjectActivity(subjectNames.get(position));
     }
 
     @Override

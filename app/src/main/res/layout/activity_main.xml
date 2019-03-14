@@ -16,22 +16,34 @@
             android:id="@+id/main_toolbar"
             layout="@layout/toolbar_layout"/>
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/main_statement"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/main_calendar_button"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/header_background"
+                android:layout_marginBottom="10dp"
+                android:text="@string/subject_calendar"
+                android:gravity="bottom"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/main_subjects_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#AAAAAA"/>
+                android:layout_height="match_parent"/>
 
-        </FrameLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/main_statement"
@@ -68,10 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navigation_menu">
-
-        <!-- stuff might go here at some point -->
-
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/navigation_menu"/>
 
 </android.support.v4.widget.DrawerLayout>

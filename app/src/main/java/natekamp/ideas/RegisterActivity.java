@@ -85,6 +85,9 @@ public class RegisterActivity extends AppCompatActivity
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            //TODO: Add email verification
+
                             String resultMsg = task.isSuccessful() ?
                                     RegisterActivity.this.getString(R.string.success_auth_msg) :
                                     "Error: " + task.getException().getMessage();
