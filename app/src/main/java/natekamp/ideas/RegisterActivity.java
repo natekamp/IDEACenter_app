@@ -64,11 +64,13 @@ public class RegisterActivity extends AppCompatActivity
 
     private void createNewAccount()
     {
-        String email = userEmail.getText().toString()+"@thompsonschools.org";
+        String email = userEmail.getText().toString();
         String password = userPassword.getText().toString();
         String confirm = userConfirm.getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirm))
+        if (!email.contains("@thompsonschools.org"))
+            Toast.makeText(this, this.getString(R.string.error_invalid_email_domain), Toast.LENGTH_SHORT).show();
+        else if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirm))
             Toast.makeText(this, this.getString(R.string.error_field_msg), Toast.LENGTH_SHORT).show();
         else if (!password.equals(confirm))
             Toast.makeText(this, this.getString(R.string.error_password_msg), Toast.LENGTH_SHORT).show();

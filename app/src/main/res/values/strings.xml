@@ -16,8 +16,7 @@
     <string name="subject_name_subject3">Subject3</string>
 
     <!--strings used in multiple places-->
-    <string name="user_email_suffix">\@thompsonschools.org</string>
-    <string name="user_email_hint">E-mail</string>
+    <string name="user_email_hint">Email</string>
     <string name="user_password_hint">Password</string>
 
     <!--strings used in MainActivity-->
@@ -51,6 +50,7 @@
     <string name="post_description_hint">Give your post a description</string>
 
     <!--error messages-->
+    <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
     <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
     <string name="error_missing_name_msg">Username not found.</string>

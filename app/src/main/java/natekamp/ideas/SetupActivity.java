@@ -54,16 +54,16 @@ public class SetupActivity extends AppCompatActivity
         setContentView(R.layout.activity_setup);
 
         mAuth = FirebaseAuth.getInstance();
+
+        profileImage = (CircleImageView) findViewById(R.id.setup_picture);
+        currentUserID = mAuth.getCurrentUser().getUid();
+        loadingBar = new ProgressDialog(this);
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         userImageRef = FirebaseStorage.getInstance().getReference().child("Profile Pictures");
 
         userName = (EditText) findViewById(R.id.setup_name);
         userGrade = (EditText) findViewById(R.id.setup_grade);
         saveButton = (Button) findViewById(R.id.setup_save);
-
-        profileImage = (CircleImageView) findViewById(R.id.setup_picture);
-        currentUserID = mAuth.getCurrentUser().getUid();
-        loadingBar = new ProgressDialog(this);
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -78,10 +78,10 @@ public class SetupActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, Gallery_Img);
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(SetupActivity.this);
             }
         });
 
@@ -114,19 +114,10 @@ public class SetupActivity extends AppCompatActivity
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== Gallery_Img && resultCode==RESULT_OK && data!=null)
-        {
-            Uri imageUri = data.getData(); //I guess this is needed for the CropImage activity
-
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);
-        }
         if (requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
         {
             CropImage.ActivityResult result  = CropImage.getActivityResult(data);
-            if (resultCode==RESULT_OK)
+            if (resultCode==RESULT_OK && data!=null)
             {
                 loadingBar.setTitle(SetupActivity.this.getString(R.string.progress_title));
                 loadingBar.setMessage(SetupActivity.this.getString(R.string.progress_pfp_msg));
