@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
 
     private RecyclerView subjectList;
     private ArrayList<String> subjectNames;
+    private ArrayList<Integer> subjectThumbnails;
     private SubjectListRecyclerAdapter sLAdapter;
 
     @Override
@@ -189,13 +190,21 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
     private void displaySubjectList()
     {
         subjectNames = new ArrayList<>();
+        subjectThumbnails = new ArrayList<>();
 
         subjectNames.add(this.getString(R.string.subject_name_art));
-        subjectNames.add(this.getString(R.string.subject_name_business));
-        subjectNames.add(this.getString(R.string.subject_name_culinary));
-        subjectNames.add(this.getString(R.string.subject_name_electronics));
+        subjectThumbnails.add(R.drawable.art_thumbnail);
 
-        sLAdapter = new SubjectListRecyclerAdapter(this, subjectNames);
+        subjectNames.add(this.getString(R.string.subject_name_business));
+        subjectThumbnails.add(R.drawable.business_thumbnail);
+
+        subjectNames.add(this.getString(R.string.subject_name_culinary));
+        subjectThumbnails.add(R.drawable.culinary_thumbnail);
+
+        subjectNames.add(this.getString(R.string.subject_name_electronics));
+        subjectThumbnails.add(R.drawable.electronics_thumbnail);
+
+        sLAdapter = new SubjectListRecyclerAdapter(this, subjectNames, subjectThumbnails);
         sLAdapter.setClickListener(this);
         subjectList.setAdapter(sLAdapter);
     }

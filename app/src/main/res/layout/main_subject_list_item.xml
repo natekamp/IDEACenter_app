@@ -6,12 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/subject_row_item"
+    <ImageButton
+        android:id="@+id/subject_row_button"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/header_background"
+        android:src="@drawable/header_background"
+        android:padding="5dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/subject_row_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
         android:text="TITLE"
         android:gravity="bottom"
         android:padding="5dp"
