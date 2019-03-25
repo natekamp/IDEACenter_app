@@ -28,6 +28,11 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
         this.mInts = ints;
         this.context = context;
     }
+    SubjectListRecyclerAdapter(Context context, List<String> strings) {
+        this.mInflater = LayoutInflater.from(context);
+        this.mStrings = strings;
+        this.context = context;
+    }
 
     // inflates the row layout from xml when needed
     @Override
@@ -42,8 +47,10 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
         String title = mStrings.get(position);
         holder.subjectText.setText(title);
 
-        Integer image = mInts.get(position);
-        holder.subjectButton.setImageResource(image);
+        if (mInts != null) {
+            Integer image = mInts.get(position);
+            holder.subjectButton.setImageResource(image);
+        }
     }
 
     // total number of rows

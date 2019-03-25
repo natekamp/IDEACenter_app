@@ -180,10 +180,11 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
          startActivity(postIntent);
     }
 
-    private void sendToSubjectActivity(String subjectName)
+    private void sendToSubjectActivity(String subjectName, int subjectThumbnail)
     {
         Intent subjectIntent = new Intent(MainActivity.this, SubjectActivity.class);
         subjectIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
+        subjectIntent.putExtra("EXTRA_SUBJECT_IMAGE", subjectThumbnail);
         startActivity(subjectIntent);
     }
 
@@ -210,8 +211,9 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        sendToSubjectActivity(subjectNames.get(position));
+    public void onItemClick(View view, int position)
+    {
+        sendToSubjectActivity(sLAdapter.getString(position), sLAdapter.getThumbnail(position));
     }
 
     @Override

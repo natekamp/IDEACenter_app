@@ -11,6 +11,7 @@
     <string name="nav_profile_title">Profile</string>
 
     <!--subject names-->
+    <string name="subject_master_calendar">Master Calendar</string>
     <string name="subject_calendar">Calendar</string>
     <string name="subject_name_art">Art</string>
     <string name="subject_name_business">Business</string>
@@ -50,6 +51,11 @@
     <string name="post_image_choose">Select an Image to Attach</string>
     <string name="post_title_hint">Give your post a title</string>
     <string name="post_description_hint">Give your post a description</string>
+
+    <!--strings used in SubjectActivity-->
+    <string name="subject_sort">Sort by: </string>
+    <string name="subject_new_videos">New Videos</string>
+    <string name="subject_top_videos">Top Videos</string>
 
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>

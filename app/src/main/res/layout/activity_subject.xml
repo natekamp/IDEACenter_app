@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SubjectActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/subject_toolbar"
+        layout="@layout/toolbar_layout"/>
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subject_toolbar"
+        android:layout_alignParentStart="true"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/subject_calendar_button"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/calendar_thumbnail"
+                android:padding="5dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/subject_calendar_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/subject_calendar"
+                android:gravity="bottom"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/subject_videos_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subject_new_videos"
+            android:gravity="bottom"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/subject_videos_sorting_title"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/subject_sort"
+                android:gravity="bottom"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"/>
+
+            <Spinner
+                android:id="@+id/subject_video_sorting_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="#FF0000"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subject_video_post_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

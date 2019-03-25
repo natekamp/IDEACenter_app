@@ -9,6 +9,7 @@ import android.view.MenuItem;
 public class SubjectActivity extends AppCompatActivity
 {
     String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
+    int subjectImage = getIntent().getIntExtra("EXTRA_SUBJECT_IMAGE", R.drawable.calendar_thumbnail);
 
     private Toolbar mToolbar;
 
