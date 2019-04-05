@@ -11,6 +11,13 @@
         android:id="@+id/subject_toolbar"
         layout="@layout/toolbar_layout"/>
 
+    <ImageButton
+        android:id="@+id/subject_post_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"/>
+
     <LinearLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
@@ -27,7 +34,7 @@
             <ImageButton
                 android:id="@+id/subject_calendar_button"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="50dp"
                 android:src="@drawable/calendar_thumbnail"
                 android:padding="5dp"
                 android:scaleType="centerCrop"/>
@@ -35,10 +42,37 @@
             <TextView
                 android:id="@+id/subject_calendar_text"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:text="@string/subject_calendar"
+                android:gravity="bottom"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/subject_tour_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/tour_thumbnail"
+                android:padding="5dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/subject_tour_text"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/subject_tour"
                 android:gravity="bottom"
                 android:padding="5dp"
                 android:textStyle="bold"
@@ -57,31 +91,6 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/colorPrimary"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/subject_videos_sorting_title"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="@string/subject_sort"
-                android:gravity="bottom"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/colorPrimary"/>
-
-            <Spinner
-                android:id="@+id/subject_video_sorting_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="#FF0000"/>
-
-        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/subject_video_post_list"

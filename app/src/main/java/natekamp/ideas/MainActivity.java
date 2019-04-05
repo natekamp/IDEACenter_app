@@ -173,13 +173,6 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         finish();
     }
 
-    private void sendToPostActivity(boolean postTypeIsVideo)
-    {
-         Intent postIntent = new Intent(MainActivity.this, PostActivity.class);
-         postIntent.putExtra("EXTRA_POST_TYPE", postTypeIsVideo);
-         startActivity(postIntent);
-    }
-
     private void sendToSubjectActivity(String subjectName, int subjectThumbnail)
     {
         Intent subjectIntent = new Intent(MainActivity.this, SubjectActivity.class);

@@ -13,6 +13,7 @@
     <!--subject names-->
     <string name="subject_master_calendar">Master Calendar</string>
     <string name="subject_calendar">Calendar</string>
+    <string name="subject_tour">Tour</string>
     <string name="subject_name_art">Art</string>
     <string name="subject_name_business">Business</string>
     <string name="subject_name_culinary">Culinary</string>
@@ -56,6 +57,8 @@
     <string name="subject_sort">Sort by: </string>
     <string name="subject_new_videos">New Videos</string>
     <string name="subject_top_videos">Top Videos</string>
+    <string name="subject_time_prefix">Posted on</string>
+    <string name="subject_time_infix">at</string>
 
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>

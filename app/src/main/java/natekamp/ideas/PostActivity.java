@@ -46,6 +46,7 @@ public class PostActivity extends AppCompatActivity
     private EditText titleText, descriptionText;
 
     boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_POST_TYPE", true);
+    String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
     private Uri attachmentUri;
     private final static int Gallery_Media = 1;
 
@@ -63,8 +64,8 @@ public class PostActivity extends AppCompatActivity
         currentUserID = mAuth.getCurrentUser().getUid();
         postAttachmentsRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("Videos");
-        postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child("Events");
+        postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
+        postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Events");
 
     //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
@@ -208,7 +209,7 @@ public class PostActivity extends AppCompatActivity
                         postMap.put("Title", postTitle);
                         postMap.put("Description", postDescription);
                         postMap.put("Attachment", attachmentValue);
-                        postMap.put("Profile Picture", currentProfilePicture);
+                        postMap.put("Profile_Picture", currentProfilePicture);
                         postMap.put("Username", currentUsername);
                     if (postTypeIsVideo)
                     {
