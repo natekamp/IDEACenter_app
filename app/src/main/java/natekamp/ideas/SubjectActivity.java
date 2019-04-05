@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -32,6 +33,7 @@ public class SubjectActivity extends AppCompatActivity
 
     private Toolbar mToolbar;
     private RecyclerView subjectVideosList;
+    private ImageButton postButton;
 
     private DatabaseReference postedVideosRef;
 
@@ -46,6 +48,7 @@ public class SubjectActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(subjectName);
+        postButton = (ImageButton) findViewById(R.id.subject_post_button);
 
         subjectVideosList = (RecyclerView) findViewById(R.id.subject_video_post_list);
         subjectVideosList.setHasFixedSize(true);
@@ -57,6 +60,15 @@ public class SubjectActivity extends AppCompatActivity
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
 
         displayVideoPosts();
+
+        postButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sendToPostActivity(true);
+            }
+        });
     }
 
     @Override
