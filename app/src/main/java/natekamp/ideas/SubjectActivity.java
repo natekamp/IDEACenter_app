@@ -1,6 +1,5 @@
 package natekamp.ideas;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SubjectActivity extends AppCompatActivity
@@ -43,20 +40,22 @@ public class SubjectActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
 
+    //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(subjectName);
+    //buttons
         postButton = (ImageButton) findViewById(R.id.subject_post_button);
-
+    //video list recycler
         subjectVideosList = (RecyclerView) findViewById(R.id.subject_video_post_list);
         subjectVideosList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         subjectVideosList.setLayoutManager(linearLayoutManager);
-
+    //database reference for posted videos
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
 
         displayVideoPosts();
@@ -66,7 +65,7 @@ public class SubjectActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                sendToPostActivity(true);
+                sendToPostActivity();
             }
         });
     }
@@ -99,17 +98,15 @@ public class SubjectActivity extends AppCompatActivity
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setAttachment(model.getAttachment());
                         //maybe need getApplicationContext() as the first parameter for the pfp and attachment
+                        //setOnClickListener here?
                     }
 
                     @NonNull
                     @Override
                     public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
                     {
-//                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.general_video_post_layout,parent,false);
-//                        PostsViewHolder viewHolder = new PostsViewHolder(view);
-//                        return viewHolder;
-                        //not sure what to do with this
-                        return null;
+                        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.general_video_post_layout,viewGroup,false);
+                        return new PostsViewHolder(view);
                     }
                 };
 
@@ -171,10 +168,10 @@ public class SubjectActivity extends AppCompatActivity
         }
     }
 
-    private void sendToPostActivity(boolean postTypeIsVideo)
+    private void sendToPostActivity()
     {
         Intent postIntent = new Intent(SubjectActivity.this, PostActivity.class);
-        postIntent.putExtra("EXTRA_POST_TYPE", postTypeIsVideo);
+        postIntent.putExtra("EXTRA_IS_VIDEO", true);
         postIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         startActivity(postIntent);
     }

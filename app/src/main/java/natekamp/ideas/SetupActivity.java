@@ -52,17 +52,19 @@ public class SetupActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
+    //firebase authentication
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
+    //database and storage references
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         userImageRef = FirebaseStorage.getInstance().getReference().child("Profile Pictures");
-
+    //ImageViews, Buttons, and EditTexts
         profileImage = (CircleImageView) findViewById(R.id.setup_picture);
-        loadingBar = new ProgressDialog(this);
-
         userName = (EditText) findViewById(R.id.setup_name);
         userGrade = (EditText) findViewById(R.id.setup_grade);
         saveButton = (Button) findViewById(R.id.setup_save);
+
+        loadingBar = new ProgressDialog(this);
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +105,7 @@ public class SetupActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-
+                //do nothing
             }
         });
     }

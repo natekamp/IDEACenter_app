@@ -1,13 +1,10 @@
 package natekamp.ideas;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -28,11 +25,11 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
         this.mInts = ints;
         this.context = context;
     }
-    SubjectListRecyclerAdapter(Context context, List<String> strings) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mStrings = strings;
-        this.context = context;
-    }
+//    SubjectListRecyclerAdapter(Context context, List<String> strings) {
+//        this.mInflater = LayoutInflater.from(context);
+//        this.mStrings = strings;
+//        this.context = context;
+//    }
 
     // inflates the row layout from xml when needed
     @Override

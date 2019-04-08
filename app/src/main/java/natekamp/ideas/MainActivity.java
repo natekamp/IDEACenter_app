@@ -123,9 +123,6 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
                 return false;
             }
         });
-
-        // TODO: Post Button
-            // declare in MainActivity, initialize in onCreate, setOnClickListener here
     }
 
     @Override

@@ -45,7 +45,7 @@ public class PostActivity extends AppCompatActivity
     private ImageButton attachmentButton;
     private EditText titleText, descriptionText;
 
-    boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_POST_TYPE", true);
+    boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_IS_VIDEO", true);
     String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
     private Uri attachmentUri;
     private final static int Gallery_Media = 1;
@@ -60,20 +60,22 @@ public class PostActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+    //firebase authentication
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
+    //database and storage references
         postAttachmentsRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
         postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Events");
 
-    //toolbar
+    //Toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title);
-    //other elements
+    //Buttons and EditTexts
         attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
         finishButton = (Button) findViewById(R.id.post_finish);
         titleText = (EditText) findViewById(R.id.post_title);
@@ -229,7 +231,8 @@ public class PostActivity extends AppCompatActivity
                                         sendToMainActivity();
                                     }
                                 });
-                    } else
+                    }
+                    else
                     {
                         postedEventsRef.child(postName).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()

@@ -1,5 +1,6 @@
 package natekamp.ideas;
 
+//used for the FirebaseRecyclerAdapter
 public class Posts
 {
     private String UID, Date, Time, Title, Description, Attachment, Profile_Picture, Username;
