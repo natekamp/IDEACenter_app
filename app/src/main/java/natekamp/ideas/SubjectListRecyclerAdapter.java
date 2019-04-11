@@ -34,19 +34,21 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.main_subject_list_item, parent, false);
+        View view = mInflater.inflate(R.layout.subject_image_card, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    // binds the data to the TextView and ImageView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position)
+    {
         String title = mStrings.get(position);
         holder.subjectText.setText(title);
 
-        if (mInts != null) {
+        if (mInts != null)
+        {
             Integer image = mInts.get(position);
-            holder.subjectButton.setImageResource(image);
+            holder.subjectImage.setImageResource(image);
         }
     }
 
@@ -59,13 +61,13 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageButton subjectButton;
+        ImageButton subjectImage;
         TextView subjectText;
 
         ViewHolder(View itemView) {
             super(itemView);
-            subjectButton = itemView.findViewById(R.id.subject_row_button);
-            subjectText = itemView.findViewById(R.id.subject_row_text);
+            subjectImage = itemView.findViewById(R.id.card_image);
+            subjectText = itemView.findViewById(R.id.card_text);
             itemView.setOnClickListener(this);
         }
 

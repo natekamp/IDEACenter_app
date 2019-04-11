@@ -25,32 +25,9 @@
             android:padding="10dp"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/main_calendar_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:src="@drawable/calendar_thumbnail"
-                    android:padding="5dp"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:id="@+id/main_calendar_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/subject_master_calendar"
-                    android:gravity="bottom"
-                    android:padding="5dp"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorPrimary"/>
-
-            </RelativeLayout>
+            <include
+                layout="@layout/subject_image_card"
+                android:id="@+id/main_calendar_card"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/main_subjects_list"

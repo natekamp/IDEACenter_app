@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -26,11 +28,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SubjectActivity extends AppCompatActivity
 {
     String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
-    int subjectImage = getIntent().getIntExtra("EXTRA_SUBJECT_IMAGE", R.drawable.calendar_thumbnail);
+    int subjectImage = getIntent().getIntExtra("EXTRA_SUBJECT_IMAGE", R.drawable.placeholder_image);
 
     private Toolbar mToolbar;
     private RecyclerView subjectVideosList;
-    private ImageButton postButton;
+    private ImageView postButton;
+    private RelativeLayout calendarCard, tourCard;
 
     private DatabaseReference postedVideosRef;
 
@@ -47,7 +50,7 @@ public class SubjectActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(subjectName);
     //buttons
-        postButton = (ImageButton) findViewById(R.id.subject_post_button);
+        postButton = (ImageView) findViewById(R.id.subject_post_button);
     //video list recycler
         subjectVideosList = (RecyclerView) findViewById(R.id.subject_video_post_list);
         subjectVideosList.setHasFixedSize(true);
@@ -57,6 +60,13 @@ public class SubjectActivity extends AppCompatActivity
         subjectVideosList.setLayoutManager(linearLayoutManager);
     //database reference for posted videos
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
+    //cards
+        calendarCard = (RelativeLayout) findViewById(R.id.subject_calendar_card);
+        ((TextView) calendarCard.findViewById(R.id.card_text)).setText(R.string.subject_calendar);
+        ((ImageView) calendarCard.findViewById(R.id.card_image)).setImageResource(R.drawable.calendar_thumbnail);
+        tourCard = (RelativeLayout) findViewById(R.id.subject_tour_card);
+        ((TextView) tourCard.findViewById(R.id.card_text)).setText(R.string.subject_tour);
+        ((ImageView) tourCard.findViewById(R.id.card_image)).setImageResource(subjectImage);
 
         displayVideoPosts();
 
@@ -68,6 +78,32 @@ public class SubjectActivity extends AppCompatActivity
                 sendToPostActivity();
             }
         });
+        calendarCard.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sendToCalendarActivity();
+            }
+        });
+        tourCard.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sendToTourActivity();
+            }
+        });
+    }
+
+    private void sendToCalendarActivity()
+    {
+        //TODO: finish this
+    }
+
+    private void sendToTourActivity()
+    {
+        //TODO: finish this
     }
 
     @Override

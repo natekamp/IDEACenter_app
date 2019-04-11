@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
     private NavigationView navigationView;
     private CircleImageView headerProfilePicture;
     private TextView headerUsername;
+    private RelativeLayout calendarCard;
 
     private RecyclerView subjectList;
     private ArrayList<String> subjectNames;
@@ -77,9 +82,20 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         subjectList.setLayoutManager(linearLayoutManager);
-
+    //cards
+        calendarCard = (RelativeLayout) findViewById(R.id.main_calendar_card);
+        ((TextView) calendarCard.findViewById(R.id.card_text)).setText(R.string.subject_master_calendar);
+        ((ImageView) calendarCard.findViewById(R.id.card_image)).setImageResource(R.drawable.calendar_thumbnail);
 
         displaySubjectList();
+
+        calendarCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                sendToCalendarActivity();
+            }
+        });
 
         //get current username and profile picture from database and put into drawer header
         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
@@ -123,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
                 return false;
             }
         });
+    }
+
+    private void sendToCalendarActivity()
+    {
+        //TODO: this
     }
 
     @Override
@@ -194,6 +215,18 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
 
         subjectNames.add(this.getString(R.string.subject_name_electronics));
         subjectThumbnails.add(R.drawable.electronics_thumbnail);
+
+        subjectNames.add("Subject 5");
+        subjectThumbnails.add(R.drawable.placeholder_image);
+
+        subjectNames.add("Subject 6");
+        subjectThumbnails.add(R.drawable.placeholder_image);
+
+        subjectNames.add("Subject 7");
+        subjectThumbnails.add(R.drawable.placeholder_image);
+
+        subjectNames.add("Subject 8");
+        subjectThumbnails.add(R.drawable.placeholder_image);
 
         sLAdapter = new SubjectListRecyclerAdapter(this, subjectNames, subjectThumbnails);
         sLAdapter.setClickListener(this);

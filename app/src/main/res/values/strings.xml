@@ -1,6 +1,6 @@
 <resources>
     <!--app name for the action bar-->
-    <string name="app_name">idea</string>
+    <string name="app_name">IDEA Center</string>
 
     <!--sidebar menu option titles-->
     <string name="nav_home_title">Home</string>
@@ -54,9 +54,9 @@
     <string name="post_description_hint">Give your post a description</string>
 
     <!--strings used in SubjectActivity-->
-    <string name="subject_sort">Sort by: </string>
-    <string name="subject_new_videos">New Videos</string>
-    <string name="subject_top_videos">Top Videos</string>
+    <string name="subject_sort">Sort by:</string>
+    <string name="subject_new_videos">New Video Uploads</string>
+    <string name="subject_top_videos">Top Video Uploads</string>
     <string name="subject_time_prefix">Posted on</string>
     <string name="subject_time_infix">at</string>
 
