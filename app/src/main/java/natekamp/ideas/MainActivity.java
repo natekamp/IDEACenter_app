@@ -25,8 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -87,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         ((TextView) calendarCard.findViewById(R.id.card_text)).setText(R.string.subject_master_calendar);
         ((ImageView) calendarCard.findViewById(R.id.card_image)).setImageResource(R.drawable.calendar_thumbnail);
 
+
         displaySubjectList();
 
         calendarCard.setOnClickListener(new View.OnClickListener() {
@@ -141,11 +140,6 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         });
     }
 
-    private void sendToCalendarActivity()
-    {
-        //TODO: this
-    }
-
     @Override
     protected void onStart()
     {
@@ -197,6 +191,11 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         subjectIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         subjectIntent.putExtra("EXTRA_SUBJECT_IMAGE", subjectThumbnail);
         startActivity(subjectIntent);
+    }
+
+    private void sendToCalendarActivity()
+    {
+        //TODO: this
     }
 
     private void displaySubjectList()

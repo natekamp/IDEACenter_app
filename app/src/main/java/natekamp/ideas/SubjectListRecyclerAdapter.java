@@ -18,18 +18,12 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
     private ItemClickListener mClickListener;
     Context context;
 
-    // data is passed into the constructor
     SubjectListRecyclerAdapter(Context context, List<String> strings, List<Integer> ints) {
         this.mInflater = LayoutInflater.from(context);
         this.mStrings = strings;
         this.mInts = ints;
         this.context = context;
     }
-//    SubjectListRecyclerAdapter(Context context, List<String> strings) {
-//        this.mInflater = LayoutInflater.from(context);
-//        this.mStrings = strings;
-//        this.context = context;
-//    }
 
     // inflates the row layout from xml when needed
     @Override
@@ -52,7 +46,6 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
         }
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
         return mStrings.size();
@@ -77,7 +70,6 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
         }
     }
 
-    // convenience method for getting data at click position
     String getString(int id) {
         return mStrings.get(id);
     }

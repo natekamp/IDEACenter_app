@@ -68,6 +68,7 @@ public class SubjectActivity extends AppCompatActivity
         ((TextView) tourCard.findViewById(R.id.card_text)).setText(R.string.subject_tour);
         ((ImageView) tourCard.findViewById(R.id.card_image)).setImageResource(subjectImage);
 
+
         displayVideoPosts();
 
         postButton.setOnClickListener(new View.OnClickListener()
@@ -94,16 +95,6 @@ public class SubjectActivity extends AppCompatActivity
                 sendToTourActivity();
             }
         });
-    }
-
-    private void sendToCalendarActivity()
-    {
-        //TODO: finish this
-    }
-
-    private void sendToTourActivity()
-    {
-        //TODO: finish this
     }
 
     @Override
@@ -217,5 +208,15 @@ public class SubjectActivity extends AppCompatActivity
         Intent mainIntent = new Intent(SubjectActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finish();
+    }
+
+    private void sendToCalendarActivity()
+    {
+        //TODO: this
+    }
+
+    private void sendToTourActivity()
+    {
+        //TODO: this
     }
 }
