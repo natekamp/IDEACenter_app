@@ -245,7 +245,6 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         return super.onOptionsItemSelected(item);
     }
 
-    //do different things for each menu option in drawer
     private void UserMenuSelector(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:
