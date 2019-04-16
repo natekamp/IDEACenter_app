@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostActivity">
+
+    <include
+        android:id="@+id/post_editor_toolbar"
+        layout="@layout/toolbar_layout"/>
+
+    <ImageButton
+        android:id="@+id/post_editor_attachment"
+        android:layout_width="400dp"
+        android:layout_height="225dp"
+        android:layout_below="@id/post_editor_toolbar"
+        android:background="@drawable/upload_video_image"
+        android:scaleType="fitCenter"/>
+
+    <EditText
+        android:id="@+id/post_editor_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_editor_attachment"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/post_editor_description"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/post_editor_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:scrollHorizontally="false"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/post_editor_update"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="@string/post_editor_update_button"
+            android:padding="10dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/post_editor_delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/warning_button"
+            android:text="@string/post_editor_delete_button"
+            android:padding="10dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -60,6 +60,10 @@
     <string name="subject_time_prefix">Posted on</string>
     <string name="subject_time_infix">at</string>
 
+    <!--stings used in PostEditorActivity-->
+    <string name="post_editor_update_button">Update Post</string>
+    <string name="post_editor_delete_button">Delete Post</string>
+
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>

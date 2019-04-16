@@ -31,7 +31,8 @@
         <activity android:name=".PostActivity" />
         <activity android:name=".SubjectActivity" />
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".TourActivity"></activity>
+        <activity android:name=".TourActivity" />
+        <activity android:name=".PostEditorActivity"></activity>
     </application>
 
 </manifest>
