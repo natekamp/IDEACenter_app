@@ -52,7 +52,7 @@ public class PostActivity extends AppCompatActivity
     private final static int Gallery_Media = 1;
 
     private String postTitle, postDescription;
-    String attachmentValue, currentDate, currentTime, postDateTime;
+    String attachmentValue, currentDate, currentTime, postName;
     private ProgressDialog loadingBar;
 
     @Override
@@ -158,7 +158,7 @@ public class PostActivity extends AppCompatActivity
 
     private void uploadAttachment(boolean postingEventWithoutAttachment)
     {
-        postDateTime = currentDate+"_"+currentTime;
+        postName = currentUserID+"_"+currentDate+"_"+currentTime;
 
         if (postingEventWithoutAttachment)
         {
@@ -168,7 +168,7 @@ public class PostActivity extends AppCompatActivity
         else
         {
             StorageReference attachmentPath = postAttachmentsRef.child("post_attachments").child(currentUserID).child(
-                    postDateTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
+                    currentDate+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
             );
 
             attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -219,7 +219,7 @@ public class PostActivity extends AppCompatActivity
                         postMap.put("Username", currentUsername);
                     if (postTypeIsVideo)
                     {
-                        postedVideosRef.child(currentUserID).child(postDateTime).updateChildren(postMap)
+                        postedVideosRef.child(postName).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()
                                 {
                                     @Override
@@ -238,7 +238,7 @@ public class PostActivity extends AppCompatActivity
                     }
                     else
                     {
-                        postedEventsRef.child(currentUserID).child(postDateTime).updateChildren(postMap)
+                        postedEventsRef.child(postName).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()
                                 {
                                     @Override
