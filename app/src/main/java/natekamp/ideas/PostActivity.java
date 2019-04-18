@@ -35,6 +35,9 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity
 {
+    boolean postTypeIsVideo;
+    String subjectName;
+
     private FirebaseAuth mAuth;
     String currentUserID;
     private StorageReference postAttachmentsRef;
@@ -45,13 +48,11 @@ public class PostActivity extends AppCompatActivity
     private ImageButton attachmentButton;
     private EditText titleText, descriptionText;
 
-    boolean postTypeIsVideo = getIntent().getBooleanExtra("EXTRA_IS_VIDEO", true);
-    String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
     private Uri attachmentUri;
     private final static int Gallery_Media = 1;
 
     private String postTitle, postDescription;
-    String attachmentValue, currentDate, currentTime, postName;
+    String attachmentValue, currentDate, currentTime, postDateTime;
     private ProgressDialog loadingBar;
 
     @Override
@@ -60,6 +61,9 @@ public class PostActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+    //extras
+        postTypeIsVideo = getIntent().getExtras().getBoolean("EXTRA_IS_VIDEO", true);
+        subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
     //firebase authentication
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -154,7 +158,7 @@ public class PostActivity extends AppCompatActivity
 
     private void uploadAttachment(boolean postingEventWithoutAttachment)
     {
-        postName = currentUserID+"_"+currentDate+"_"+currentTime;
+        postDateTime = currentDate+"_"+currentTime;
 
         if (postingEventWithoutAttachment)
         {
@@ -163,8 +167,8 @@ public class PostActivity extends AppCompatActivity
         }
         else
         {
-            StorageReference attachmentPath = postAttachmentsRef.child("Post Attachments").child(
-                    postName + "_attached" + (postTypeIsVideo ? "Video.mp4" : "Image.png")
+            StorageReference attachmentPath = postAttachmentsRef.child("post_attachments").child(currentUserID).child(
+                    postDateTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
             );
 
             attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -215,7 +219,7 @@ public class PostActivity extends AppCompatActivity
                         postMap.put("Username", currentUsername);
                     if (postTypeIsVideo)
                     {
-                        postedVideosRef.child(postName).updateChildren(postMap)
+                        postedVideosRef.child(currentUserID).child(postDateTime).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()
                                 {
                                     @Override
@@ -234,7 +238,7 @@ public class PostActivity extends AppCompatActivity
                     }
                     else
                     {
-                        postedEventsRef.child(postName).updateChildren(postMap)
+                        postedEventsRef.child(currentUserID).child(postDateTime).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()
                                 {
                                     @Override

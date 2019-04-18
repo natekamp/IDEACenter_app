@@ -27,8 +27,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SubjectActivity extends AppCompatActivity
 {
-    String subjectName = getIntent().getStringExtra("EXTRA_SUBJECT_NAME");
-    int subjectImage = getIntent().getIntExtra("EXTRA_SUBJECT_IMAGE", R.drawable.placeholder_image);
+    String subjectName;
+    int subjectImage;
 
     private Toolbar mToolbar;
     private RecyclerView subjectVideosList;
@@ -43,8 +43,11 @@ public class SubjectActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
 
+    //extras
+        subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
+        subjectImage = getIntent().getExtras().getInt("EXTRA_SUBJECT_IMAGE", R.drawable.placeholder_image);
     //toolbar
-        mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.subject_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class SubjectListRecyclerAdapter extends RecyclerView.Adapter<SubjectList
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageButton subjectImage;
+        ImageView subjectImage;
         TextView subjectText;
 
         ViewHolder(View itemView) {
