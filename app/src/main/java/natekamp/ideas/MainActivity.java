@@ -253,8 +253,8 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
             case R.id.nav_home:
                 Toast.makeText(this, "Home Selected", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_friends:
-                Toast.makeText(this, "Friends Selected", Toast.LENGTH_SHORT).show();
+            case R.id.nav_about:
+                Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_messages:
                 Toast.makeText(this, "Messages Selected", Toast.LENGTH_SHORT).show();

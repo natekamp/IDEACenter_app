@@ -8,63 +8,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/main_toolbar"
-            layout="@layout/toolbar_layout"/>
+            layout="@layout/toolbar_layout"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <LinearLayout
-            android:id="@+id/main_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/main_statement"
-            android:layout_alignParentStart="true"
-            android:padding="10dp"
-            android:orientation="vertical">
+        <include
+            layout="@layout/subject_image_card"
+            android:id="@+id/main_calendar_card"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar"/>
 
-            <include
-                layout="@layout/subject_image_card"
-                android:id="@+id/main_calendar_card"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_subjects_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_calendar_card"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/main_subjects_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/main_statement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/main_toolbar"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/main_statement_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/main_statement_title"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:id="@+id/main_statement_msg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/main_statement_title"
-                android:text="@string/main_statement_msg"
-                android:textAlignment="center"
-                android:textSize="15sp"/>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"

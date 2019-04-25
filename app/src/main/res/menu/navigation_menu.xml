@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/nav_about"
+        android:title="@string/nav_about_title"
+        android:icon="@drawable/about_icon"/>
+
+    <item
         android:id="@+id/nav_profile"
         android:title="@string/nav_profile_title"
         android:icon="@drawable/profile_icon"/>
@@ -10,11 +15,6 @@
         android:id="@+id/nav_home"
         android:title="@string/nav_home_title"
         android:icon="@drawable/home_icon"/>
-
-    <item
-        android:id="@+id/nav_friends"
-        android:title="@string/nav_friends_title"
-        android:icon="@drawable/friends_icon"/>
 
     <item
         android:id="@+id/nav_messages"
