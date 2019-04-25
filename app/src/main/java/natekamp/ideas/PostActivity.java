@@ -52,7 +52,7 @@ public class PostActivity extends AppCompatActivity
     private final static int Gallery_Media = 1;
 
     private String postTitle, postDescription;
-    String attachmentValue, currentDate, currentTime, postName;
+    String attachmentValue, currentDate, currentTime, postName, currentTimestamp;
     private ProgressDialog loadingBar;
 
     @Override
@@ -130,6 +130,7 @@ public class PostActivity extends AppCompatActivity
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MMMM-dd");
         SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+        currentTimestamp = new SimpleDateFormat("'Posted on' MMMM dd, yyyy 'at' h:mm a").format(cal.getTime());
 
         postTitle = titleText.getText().toString();
         postDescription = descriptionText.getText().toString();
@@ -210,8 +211,7 @@ public class PostActivity extends AppCompatActivity
 
                     HashMap postMap = new HashMap();
                         postMap.put("UID", currentUserID);
-                        postMap.put("Date", currentDate);
-                        postMap.put("Time", currentTime);
+                        postMap.put("Timestamp", currentTimestamp);
                         postMap.put("Title", postTitle);
                         postMap.put("Description", postDescription);
                         postMap.put("Attachment", attachmentValue);

@@ -122,8 +122,8 @@ public class SubjectActivity extends AppCompatActivity
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model)
                     {
                         holder.setUsername(model.getUsername());
-                        holder.setTime(model.getTime());
-                        holder.setDate(model.getDate());
+                        holder.setTimestamp(model.getTimestamp());
+                        holder.setTitle(model.getTitle());
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setAttachment(model.getAttachment());
@@ -161,16 +161,10 @@ public class SubjectActivity extends AppCompatActivity
             postUsername.setText(username);
         }
 
-        public void setDate(String date)
+        public void setTimestamp(String timestamp)
         {
-            TextView postDate = (TextView) mView.findViewById(R.id.videoPost_date);
-            postDate.setText(date);
-        }
-
-        public void setTime(String time)
-        {
-            TextView postTime = (TextView) mView.findViewById(R.id.videoPost_time);
-            postTime.setText(time);
+            TextView postTimestamp = (TextView) mView.findViewById(R.id.videoPost_timestamp);
+            postTimestamp.setText(timestamp);
         }
 
         public void setTitle(String title)

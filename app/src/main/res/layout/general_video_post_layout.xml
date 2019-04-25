@@ -5,21 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/videoPost_divider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorPrimaryDark"/>
-
     <LinearLayout
+        android:id="@+id/videoPost_mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@id/videoPost_divider">
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,54 +43,19 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="USERNAME"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/videoPost_timestamp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="@string/subject_time_prefix"/>
-
-                    <TextView
-                        android:id="@+id/videoPost_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="DATE"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="@string/subject_time_infix"/>
-
-                    <TextView
-                        android:id="@+id/videoPost_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="TIME"/>
-
-                </LinearLayout>
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="TIMESTAMP"/>
 
             </LinearLayout>
 
@@ -128,5 +87,12 @@
             android:text="DESCRIPTION"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/videoPost_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@id/videoPost_mainContainer"/>
 
 </RelativeLayout>
