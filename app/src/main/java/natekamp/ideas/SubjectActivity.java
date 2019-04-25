@@ -1,6 +1,11 @@
 package natekamp.ideas;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +27,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -187,8 +194,9 @@ public class SubjectActivity extends AppCompatActivity
 
         public void setAttachment(String attachment)
         {
-            VideoView video = (VideoView) mView.findViewById(R.id.videoPost_video);
-            //TODO: get the video to load
+            ImageView video = (ImageView) mView.findViewById(R.id.videoPost_video_thumbnail);
+            Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(attachment, MediaStore.Video.Thumbnails.MINI_KIND);
+            video.setImageBitmap(thumbnail);
         }
     }
 
@@ -215,5 +223,12 @@ public class SubjectActivity extends AppCompatActivity
     private void sendToTourActivity()
     {
         //TODO: this
+    }
+
+    private void sendToVideoActivity(String videoURL)
+    {
+        Intent videoIntent = new Intent(SubjectActivity.this, VideoActivity.class);
+        videoIntent.putExtra("EXTRA_VIDEO_URL", videoURL);
+        startActivity(videoIntent);
     }
 }
