@@ -8,7 +8,8 @@
 
     <include
         android:id="@+id/post_toolbar"
-        layout="@layout/toolbar_layout"/>
+        layout="@layout/toolbar_layout"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/post_attachment"

@@ -23,9 +23,13 @@
     <string name="user_email_hint">Email</string>
     <string name="user_password_hint">Password</string>
 
+    <!--strings used in AboutActivity-->
+    <string name="about_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
+    <string name="about_acronym">I\nD\nE\nA</string>
+    <string name="about_acronym_meaning">- Innovation\n- Design\n- Entrepreneurship\n- Arts</string>
+    <string name="about_toolbar_title">About the IDEA Center</string>
+
     <!--strings used in MainActivity-->
-    <string name="main_statement_title">&#8212; Mission Statement &#8212;</string>
-    <string name="main_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 

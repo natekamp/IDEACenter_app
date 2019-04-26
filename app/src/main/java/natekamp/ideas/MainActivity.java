@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         subjectList = (RecyclerView) findViewById(R.id.main_subjects_list);
         subjectList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
         subjectList.setLayoutManager(linearLayoutManager);
     //cards
         calendarCard = (RelativeLayout) findViewById(R.id.main_calendar_card);
@@ -193,6 +191,12 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         startActivity(subjectIntent);
     }
 
+    private void sendToAboutActivity()
+    {
+        Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(aboutIntent);
+    }
+
     private void sendToCalendarActivity()
     {
         //TODO: this
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
                 Toast.makeText(this, "Home Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_about:
-                Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show();
+                sendToAboutActivity();
                 break;
             case R.id.nav_messages:
                 Toast.makeText(this, "Messages Selected", Toast.LENGTH_SHORT).show();

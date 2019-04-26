@@ -33,7 +33,8 @@
         <activity android:name=".CalendarActivity" />
         <activity android:name=".TourActivity" />
         <activity android:name=".PostEditorActivity" />
-        <activity android:name=".VideoActivity"></activity>
+        <activity android:name=".VideoActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
