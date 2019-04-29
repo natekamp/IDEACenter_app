@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity
         setContentView(R.layout.activity_about);
 
     //Toolbar
-        mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.about_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -29,15 +29,8 @@ public class AboutActivity extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if (id==android.R.id.home) sendToMainActivity();
+        if (id==android.R.id.home) finish();
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void sendToMainActivity()
-    {
-        Intent mainIntent = new Intent(AboutActivity.this, MainActivity.class);
-        startActivity(mainIntent);
-        finish();
     }
 }

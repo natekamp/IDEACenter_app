@@ -34,15 +34,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SubjectActivity extends AppCompatActivity
 {
+    //extras
     String subjectName;
     int subjectImage;
 
-    private Toolbar mToolbar;
-    private RecyclerView subjectVideosList;
-    private ImageView postButton;
-    private RelativeLayout calendarCard, tourCard;
-
+    //firebase
     private DatabaseReference postedVideosRef;
+
+    //toolbar
+    private Toolbar mToolbar;
+
+    //recycler
+    private RecyclerView subjectVideosList;
+
+    //views
+    private ImageView postButton;
+
+    //cards
+    private RelativeLayout calendarCard, tourCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,27 +59,32 @@ public class SubjectActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
 
-    //extras
+        //extras
         subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
         subjectImage = getIntent().getExtras().getInt("EXTRA_SUBJECT_IMAGE", R.drawable.placeholder_image);
-    //toolbar
+
+        //firebase
+        postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
+
+        //toolbar
         mToolbar = (Toolbar) findViewById(R.id.subject_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(subjectName);
-    //buttons
-        postButton = (ImageView) findViewById(R.id.subject_post_button);
-    //video list recycler
+
+        //recycler
         subjectVideosList = (RecyclerView) findViewById(R.id.subject_video_post_list);
         subjectVideosList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         subjectVideosList.setLayoutManager(linearLayoutManager);
-    //database reference for posted videos
-        postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
-    //cards
+
+        //views
+        postButton = (ImageView) findViewById(R.id.subject_post_button);
+
+        //cards
         calendarCard = (RelativeLayout) findViewById(R.id.subject_calendar_card);
         ((TextView) calendarCard.findViewById(R.id.card_text)).setText(R.string.subject_calendar);
         ((ImageView) calendarCard.findViewById(R.id.card_image)).setImageResource(R.drawable.calendar_thumbnail);
@@ -112,7 +126,7 @@ public class SubjectActivity extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if (id==android.R.id.home) sendToMainActivity();
+        if (id==android.R.id.home) finish();
 
         return super.onOptionsItemSelected(item);
     }
@@ -134,7 +148,6 @@ public class SubjectActivity extends AppCompatActivity
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setAttachment(model.getAttachment());
-                        //maybe need getApplicationContext() as the first parameter for the pfp and attachment
                         //setOnClickListener here?
                     }
 
@@ -151,6 +164,7 @@ public class SubjectActivity extends AppCompatActivity
         firebaseRecyclerAdapter.startListening();
     }
 
+    //holder class for firebase recycler
     public static class PostsViewHolder extends RecyclerView.ViewHolder
     {
         View mView;
@@ -206,13 +220,6 @@ public class SubjectActivity extends AppCompatActivity
         postIntent.putExtra("EXTRA_IS_VIDEO", true);
         postIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         startActivity(postIntent);
-    }
-
-    private void sendToMainActivity()
-    {
-        Intent mainIntent = new Intent(SubjectActivity.this, MainActivity.class);
-        startActivity(mainIntent);
-        finish();
     }
 
     private void sendToCalendarActivity()

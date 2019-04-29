@@ -2,7 +2,11 @@ package natekamp.ideas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,30 +33,40 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity
 {
+    private final static int Gallery_Media = 1;
+
+    //extras
     boolean postTypeIsVideo;
     String subjectName;
 
+    //firebase
     private FirebaseAuth mAuth;
     String currentUserID;
     private StorageReference postAttachmentsRef;
     private DatabaseReference usersRef, postedVideosRef, postedEventsRef;
 
+    //toolbar
     private Toolbar mToolbar;
+
+    //views
     private Button finishButton;
     private ImageButton attachmentButton;
     private EditText titleText, descriptionText;
 
+    //post info
     private Uri attachmentUri;
-    private final static int Gallery_Media = 1;
-
+    private Bitmap thumbnailBitmap;
     private String postTitle, postDescription;
-    String attachmentValue, currentDate, currentTime, postName, currentTimestamp;
+    String attachmentURL, thumbnailURL, currentDate, currentTime, postName, currentTimestamp;
+
+    //progress dialog
     private ProgressDialog loadingBar;
 
     @Override
@@ -61,30 +75,32 @@ public class PostActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-    //extras
+        //extras
         postTypeIsVideo = getIntent().getExtras().getBoolean("EXTRA_IS_VIDEO", true);
         subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
-    //firebase authentication
+
+        //firebase
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-    //database and storage references
         postAttachmentsRef = FirebaseStorage.getInstance().getReference();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
         postedEventsRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Events");
 
-    //Toolbar
+        //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title);
-    //Buttons and EditTexts
+
+        //views
         attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
         finishButton = (Button) findViewById(R.id.post_finish);
         titleText = (EditText) findViewById(R.id.post_title);
         descriptionText = (EditText) findViewById(R.id.post_description);
 
+        //progress dialog
         loadingBar = new ProgressDialog(this);
 
 
@@ -122,21 +138,16 @@ public class PostActivity extends AppCompatActivity
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, Gallery_Media);
-        //startActivityForResult(Intent.createChooser(galleryIntent,PostActivity.this.getString(R.string.post_image_choose)), Gallery_Img);
     }
 
     private void validatePost()
     {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MMMM-dd");
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
         currentTimestamp = new SimpleDateFormat("'Posted on' MMMM dd, yyyy 'at' h:mm a").format(cal.getTime());
-
+        currentDate = new SimpleDateFormat("yyyy-MMMM-dd").format(cal.getTime());
+        currentTime = new SimpleDateFormat("HH:mm:ss").format(cal.getTime());
         postTitle = titleText.getText().toString();
         postDescription = descriptionText.getText().toString();
-        currentDate = date.format(cal.getTime());
-        currentTime = time.format(cal.getTime());
-
 
         if (TextUtils.isEmpty(postTitle))
             Toast.makeText(this, R.string.error_missing_title, Toast.LENGTH_SHORT).show();
@@ -163,7 +174,7 @@ public class PostActivity extends AppCompatActivity
 
         if (postingEventWithoutAttachment)
         {
-            attachmentValue = "NO_ATTACHMENT";
+            attachmentURL = "NO_ATTACHMENT";
             savePostInfo();
         }
         else
@@ -172,26 +183,52 @@ public class PostActivity extends AppCompatActivity
                     currentDate+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
             );
 
+            if (postTypeIsVideo)
+            {
+                StorageReference thumbnailPath = postAttachmentsRef.child("post_thumbnails").child(currentUserID).child(
+                        currentDate+"_"+currentTime+"_videoThumbnail.png"
+                );
+
+                //convert thumbnail bitmap to byte array
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] thumbnailBytes = baos.toByteArray();
+
+                //upload thumbnail to database
+                thumbnailPath.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    thumbnailURL = uri.toString();
+                                }
+                            });
+                        }
+                        else Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            //upload attachment to database
             attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    String resultMsg = task.isSuccessful() ?
-                            PostActivity.this.getString(R.string.success_upload_attachment_msg) :
-                            "Error: " + task.getException().getMessage();
-
-                    Toast.makeText(PostActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
-
                     if (task.isSuccessful())
                     {
                         Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
                         result.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                attachmentValue = uri.toString();
+                                attachmentURL = uri.toString();
                                 savePostInfo();
                             }
                         });
                     }
+                    else Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -214,11 +251,12 @@ public class PostActivity extends AppCompatActivity
                         postMap.put("Timestamp", currentTimestamp);
                         postMap.put("Title", postTitle);
                         postMap.put("Description", postDescription);
-                        postMap.put("Attachment", attachmentValue);
+                        postMap.put("Attachment", attachmentURL);
                         postMap.put("Profile_Picture", currentProfilePicture);
                         postMap.put("Username", currentUsername);
                     if (postTypeIsVideo)
                     {
+                        postMap.put("Thumbnail", thumbnailURL);
                         postedVideosRef.child(postName).updateChildren(postMap)
                                 .addOnCompleteListener(new OnCompleteListener()
                                 {
@@ -232,7 +270,7 @@ public class PostActivity extends AppCompatActivity
                                         loadingBar.dismiss();
                                         Toast.makeText(PostActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
 
-                                        sendToMainActivity();
+                                        if (task.isSuccessful()) finish();
                                     }
                                 });
                     }
@@ -251,17 +289,14 @@ public class PostActivity extends AppCompatActivity
                                         loadingBar.dismiss();
                                         Toast.makeText(PostActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
 
-                                        sendToMainActivity();
+                                        if (task.isSuccessful()) finish();
                                     }
                                 });
                     }
                 }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-                //do nothing
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {/*do nothing*/}
         });
     }
 
@@ -274,9 +309,22 @@ public class PostActivity extends AppCompatActivity
             if (requestCode==Gallery_Media)
             {
                 attachmentUri = data.getData();
-                attachmentButton.setImageURI(attachmentUri);
+                thumbnailBitmap = generateThumbnail(attachmentUri);
+                attachmentButton.setImageBitmap(thumbnailBitmap);
             }
         }
+    }
+
+    private Bitmap generateThumbnail(Uri videoUri)
+    {
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = PostActivity.this.getContentResolver().query(videoUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        return ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MINI_KIND);
     }
 
     @Override
@@ -284,15 +332,8 @@ public class PostActivity extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if (id==android.R.id.home) sendToMainActivity();
+        if (id==android.R.id.home) finish();
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void sendToMainActivity()
-    {
-        Intent mainIntent = new Intent(PostActivity.this, MainActivity.class);
-        startActivity(mainIntent);
-        finish();
     }
 }

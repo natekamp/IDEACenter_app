@@ -31,22 +31,31 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements SubjectListRecyclerAdapter.ItemClickListener
 {
+    //firebase
     private FirebaseAuth mAuth;
     String currentUserID;
     private DatabaseReference usersRef;
 
+    //toolbar
     private Toolbar mToolbar;
+
+    //drawer menu
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    //inside drawer
     private NavigationView navigationView;
     private CircleImageView headerProfilePicture;
     private TextView headerUsername;
-    private RelativeLayout calendarCard;
 
+    //subject list
     private RecyclerView subjectList;
     private ArrayList<String> subjectNames;
     private ArrayList<Integer> subjectThumbnails;
     private SubjectListRecyclerAdapter sLAdapter;
+
+    //cards
+    private RelativeLayout calendarCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,31 +63,36 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //firebase
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-    //toolbar
+        //toolbar
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.nav_home_title);
-    //drawer menu
+
+        //drawer menu
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    //inside drawer
+
+        //inside drawer
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
         headerProfilePicture = (CircleImageView) navView.findViewById(R.id.nav_profile_picture);
         headerUsername = (TextView) navView.findViewById(R.id.nav_username);
-    //subject list
+
+        //subject list
         subjectList = (RecyclerView) findViewById(R.id.main_subjects_list);
         subjectList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         subjectList.setLayoutManager(linearLayoutManager);
-    //cards
+
+        //cards
         calendarCard = (RelativeLayout) findViewById(R.id.main_calendar_card);
         ((TextView) calendarCard.findViewById(R.id.card_text)).setText(R.string.subject_master_calendar);
         ((ImageView) calendarCard.findViewById(R.id.card_image)).setImageResource(R.drawable.calendar_thumbnail);
@@ -94,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
             }
         });
 
-        //get current username and profile picture from database and put into drawer header
+        //put username and profile picture from database into drawer header
         usersRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -160,10 +174,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
                 if (!dataSnapshot.hasChild(currentUserID_check)) sendToSetupActivity();
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-                //do nothing
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {/*do nothing*/}
         });
     }
 
@@ -207,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         subjectNames = new ArrayList<>();
         subjectThumbnails = new ArrayList<>();
 
+        //add subject cards to RecyclerView
         subjectNames.add(this.getString(R.string.subject_name_art));
         subjectThumbnails.add(R.drawable.art_thumbnail);
 
@@ -222,20 +234,12 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         subjectNames.add("Subject 5");
         subjectThumbnails.add(R.drawable.placeholder_image);
 
-        subjectNames.add("Subject 6");
-        subjectThumbnails.add(R.drawable.placeholder_image);
-
-        subjectNames.add("Subject 7");
-        subjectThumbnails.add(R.drawable.placeholder_image);
-
-        subjectNames.add("Subject 8");
-        subjectThumbnails.add(R.drawable.placeholder_image);
-
         sLAdapter = new SubjectListRecyclerAdapter(this, subjectNames, subjectThumbnails);
         sLAdapter.setClickListener(this);
         subjectList.setAdapter(sLAdapter);
     }
 
+    //RecyclerView subject card click
     @Override
     public void onItemClick(View view, int position)
     {
@@ -249,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
         return super.onOptionsItemSelected(item);
     }
 
+    //drawer menu item click
     private void UserMenuSelector(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:

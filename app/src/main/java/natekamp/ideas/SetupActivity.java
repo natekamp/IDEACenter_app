@@ -35,15 +35,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetupActivity extends AppCompatActivity
 {
+    //firebase
     private FirebaseAuth mAuth;
     String currentUserID;
     private DatabaseReference usersRef;
     private StorageReference userImageRef;
 
+    //views
     private EditText userName, userGrade;
     private Button saveButton;
     private CircleImageView profileImage;
 
+    //progress dialog
     private ProgressDialog loadingBar;
 
     @Override
@@ -52,18 +55,19 @@ public class SetupActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-    //firebase authentication
+        //firebase
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-    //database and storage references
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
         userImageRef = FirebaseStorage.getInstance().getReference().child("profile_pictures");
-    //ImageViews, Buttons, and EditTexts
+
+        //views
         profileImage = (CircleImageView) findViewById(R.id.setup_picture);
         userName = (EditText) findViewById(R.id.setup_name);
         userGrade = (EditText) findViewById(R.id.setup_grade);
         saveButton = (Button) findViewById(R.id.setup_save);
 
+        //progress dialog
         loadingBar = new ProgressDialog(this);
 
 
@@ -97,16 +101,12 @@ public class SetupActivity extends AppCompatActivity
                         String profile_picture = dataSnapshot.child("Profile Picture").getValue().toString();
                         Picasso.get().load(profile_picture).placeholder(R.drawable.profile_picture).into(profileImage);
                     }
-                    else
-                        Toast.makeText(SetupActivity.this, SetupActivity.this.getString(R.string.error_missing_pfp_msg_b), Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(SetupActivity.this, SetupActivity.this.getString(R.string.error_missing_pfp_msg_b), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-                //do nothing
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {/*do nothing*/}
         });
     }
 
@@ -134,8 +134,6 @@ public class SetupActivity extends AppCompatActivity
                     {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(SetupActivity.this, SetupActivity.this.getString(R.string.success_pfp_msg_a), Toast.LENGTH_SHORT).show();
-
                             Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
                             result.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override

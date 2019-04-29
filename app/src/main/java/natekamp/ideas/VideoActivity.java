@@ -7,8 +7,13 @@ import android.widget.VideoView;
 
 public class VideoActivity extends AppCompatActivity
 {
-    private VideoView videoView;
+    //extras
     String videoURL;
+
+    //views
+    private VideoView videoView;
+
+    //controller
     private MediaController mediaController;
 
     @Override
@@ -17,22 +22,19 @@ public class VideoActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-    //extras
+        //extras
         videoURL = getIntent().getExtras().getString("EXTRA_VIDEO_URL", "https://youtu.be/dQw4w9WgXcQ");
 
-
-        configureVideoView();
-    }
-
-    private void configureVideoView()
-    {
+        //views
         videoView = findViewById(R.id.video_player);
         videoView.setVideoPath(videoURL);
 
+        //controller
         mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
 
+
+        videoView.setMediaController(mediaController);
         videoView.start();
     }
 }

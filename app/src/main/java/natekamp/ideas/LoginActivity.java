@@ -19,11 +19,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity
 {
+    //firebase
     private FirebaseAuth mAuth;
 
+    //views
     private Button loginButton, registerButton;
     private EditText userEmail, userPassword;
 
+    //progress dialog
     private ProgressDialog loadingBar;
 
     @Override
@@ -32,14 +35,16 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-    //firebase authentication
+        //firebase
         mAuth = FirebaseAuth.getInstance();
-    //Buttons and EditTexts
+
+        //views
         loginButton = (Button) findViewById(R.id.login_login);
         registerButton = (Button) findViewById(R.id.login_register);
         userEmail = (EditText) findViewById(R.id.login_email);
         userPassword = (EditText) findViewById(R.id.login_password);
 
+        //progress dialog
         loadingBar = new ProgressDialog(this);
 
 
