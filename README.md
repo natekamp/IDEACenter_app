@@ -1,4 +1,4 @@
-# i.d.e.a._app
-Mobile app for the LHS i.d.e.a. center.
+# IDEA_Center
+Mobile app for the Loveland High School IDEA Center.
 
-Progress (vid:min:sec) = 26:07:09
+Progress (vid:min:sec) = 28:00:00

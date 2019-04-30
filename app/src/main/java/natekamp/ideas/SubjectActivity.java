@@ -2,6 +2,7 @@ package natekamp.ideas;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.widget.VideoView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -40,6 +42,8 @@ public class SubjectActivity extends AppCompatActivity
     int subjectImage;
 
     //firebase
+    private FirebaseAuth mAuth;
+    String currentUserID;
     private DatabaseReference postedVideosRef;
 
     //toolbar
@@ -65,6 +69,8 @@ public class SubjectActivity extends AppCompatActivity
         subjectImage = getIntent().getExtras().getInt("EXTRA_SUBJECT_IMAGE", R.drawable.placeholder_image);
 
         //firebase
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos");
 
         //toolbar
@@ -145,6 +151,7 @@ public class SubjectActivity extends AppCompatActivity
                     {
                         final String PostKey = getRef(position).getKey();
                         final String VideoPostURL = model.getAttachment();
+                        final boolean isUsersPost = PostKey.contains(currentUserID);
 
                         holder.setUsername(model.getUsername());
                         holder.setTimestamp(model.getTimestamp());
@@ -152,6 +159,7 @@ public class SubjectActivity extends AppCompatActivity
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setThumbnail(model.getThumbnail());
+                        if (isUsersPost) holder.removeEditor();
 
                         holder.mProfile_Picture.setOnClickListener(new View.OnClickListener()
                         {
@@ -166,7 +174,7 @@ public class SubjectActivity extends AppCompatActivity
                             @Override
                             public void onClick(View v)
                             {
-                                sendToPostEditorActivity(PostKey);
+                                if (isUsersPost) sendToPostEditorActivity(PostKey);
                             }
                         });
                         holder.mDescription.setOnClickListener(new View.OnClickListener()
@@ -221,6 +229,11 @@ public class SubjectActivity extends AppCompatActivity
             mTimestamp = (TextView) mView.findViewById(R.id.videoPost_timestamp);
             mTitle = (TextView) mView.findViewById(R.id.videoPost_title);
             mDescription = (TextView) mView.findViewById(R.id.videoPost_description);
+        }
+
+        public void removeEditor()
+        {
+            mEditor.setColorFilter(Color.argb(0, 0, 0, 0));
         }
 
         public void setUsername(String username)
@@ -281,6 +294,7 @@ public class SubjectActivity extends AppCompatActivity
     {
         Intent editorIntent = new Intent(SubjectActivity.this, PostEditorActivity.class);
         editorIntent.putExtra("EXTRA_POST_KEY", key);
+        editorIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         startActivity(editorIntent);
     }
 
