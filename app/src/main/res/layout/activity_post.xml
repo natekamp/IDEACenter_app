@@ -11,13 +11,14 @@
         layout="@layout/toolbar_layout"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/post_attachment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintTop_toBottomOf="@id/post_toolbar"
-        android:background="@drawable/upload_video_image"
+        android:src="@drawable/placeholder_image_wide"
+        android:background="#000000"
         android:scaleType="fitCenter"/>
 
     <EditText

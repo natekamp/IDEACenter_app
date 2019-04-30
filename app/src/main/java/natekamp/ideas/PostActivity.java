@@ -2,22 +2,22 @@ package natekamp.ideas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,7 +57,7 @@ public class PostActivity extends AppCompatActivity
 
     //views
     private Button finishButton;
-    private ImageButton attachmentButton;
+    private ImageView attachmentImage;
     private EditText titleText, descriptionText;
 
     //post info
@@ -95,7 +95,7 @@ public class PostActivity extends AppCompatActivity
         getSupportActionBar().setTitle(postTypeIsVideo ? R.string.post_video_toolbar_title : R.string.post_event_toolbar_title);
 
         //views
-        attachmentButton = (ImageButton) findViewById(R.id.post_attachment);
+        attachmentImage = (ImageView) findViewById(R.id.post_attachment);
         finishButton = (Button) findViewById(R.id.post_finish);
         titleText = (EditText) findViewById(R.id.post_title);
         descriptionText = (EditText) findViewById(R.id.post_description);
@@ -104,7 +104,7 @@ public class PostActivity extends AppCompatActivity
         loadingBar = new ProgressDialog(this);
 
 
-        attachmentButton.setOnClickListener(new View.OnClickListener()
+        attachmentImage.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -309,22 +309,14 @@ public class PostActivity extends AppCompatActivity
             if (requestCode==Gallery_Media)
             {
                 attachmentUri = data.getData();
-                thumbnailBitmap = generateThumbnail(attachmentUri);
-                attachmentButton.setImageBitmap(thumbnailBitmap);
+
+                MediaMetadataRetriever mMMR = new MediaMetadataRetriever();
+                mMMR.setDataSource(this, attachmentUri);
+                thumbnailBitmap = mMMR.getFrameAtTime();
+
+                attachmentImage.setImageBitmap(thumbnailBitmap);
             }
         }
-    }
-
-    private Bitmap generateThumbnail(Uri videoUri)
-    {
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = PostActivity.this.getContentResolver().query(videoUri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-
-        return ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MINI_KIND);
     }
 
     @Override

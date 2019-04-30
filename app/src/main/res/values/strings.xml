@@ -56,7 +56,7 @@
     <string name="post_image_choose">Select an Image to Attach</string>
     <string name="post_title_hint">Give your post a title</string>
     <string name="post_description_hint">Give your post a description</string>
-    <string name="post_video_size_warning">Warning: Large video files will take longer to upload.</string>
+    <string name="post_video_size_warning">Warning: Large files will take longer to upload.</string>
 
     <!--strings used in SubjectActivity-->
     <string name="subject_sort">Sort by:</string>

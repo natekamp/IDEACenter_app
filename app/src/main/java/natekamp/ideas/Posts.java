@@ -3,11 +3,11 @@ package natekamp.ideas;
 //used for the FirebaseRecyclerAdapter
 public class Posts
 {
-    private String UID, Timestamp, Title, Description, Attachment, Profile_Picture, Username;
+    private String UID, Timestamp, Title, Description, Attachment, Profile_Picture, Username, Thumbnail;
 
     public Posts() {}
 
-    public Posts(String UID, String timestamp, String title, String description, String attachment, String profile_Picture, String username)
+    public Posts(String UID, String timestamp, String title, String description, String attachment, String profile_Picture, String username, String thumbnail)
     {
         this.UID = UID;
         Timestamp = timestamp;
@@ -16,6 +16,7 @@ public class Posts
         Attachment = attachment;
         Profile_Picture = profile_Picture;
         Username = username;
+        Thumbnail = thumbnail;
     }
 
     public String getUID(){
@@ -72,5 +73,13 @@ public class Posts
 
     public void setUsername(String username) {
         Username = username;
+    }
+
+    public String getThumbnail() {
+        return Thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        Thumbnail = thumbnail;
     }
 }

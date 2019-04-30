@@ -50,15 +50,17 @@
         app:layout_constraintTop_toBottomOf="@id/videoPost_profile_picture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/placeholder_image"
-        android:scaleType="centerCrop"/>
+        android:src="@drawable/placeholder_image_wide"
+        android:background="#000000"
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:id="@+id/videoPost_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         app:layout_constraintTop_toBottomOf="@id/videoPost_video_thumbnail"
+        app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"
@@ -66,12 +68,14 @@
 
     <TextView
         android:id="@+id/videoPost_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintTop_toBottomOf="@id/videoPost_title"
+        app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textColor="@color/colorPrimaryDark"
         android:text="DESCRIPTION"/>
 
@@ -79,7 +83,7 @@
         android:id="@+id/videoPost_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/videoPost_description"

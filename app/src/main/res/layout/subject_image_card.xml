@@ -9,7 +9,7 @@
         android:id="@+id/card_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/placeholder_image"
+        android:src="@drawable/placeholder_image_wide"
         android:scaleType="centerCrop"/>
 
     <TextView

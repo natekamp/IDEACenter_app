@@ -147,6 +147,7 @@ public class SubjectActivity extends AppCompatActivity
                         holder.setTitle(model.getTitle());
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
+                        holder.setThumbnail(model.getThumbnail());
                         holder.setAttachment(model.getAttachment());
                         //setOnClickListener here?
                     }
@@ -206,11 +207,15 @@ public class SubjectActivity extends AppCompatActivity
             Picasso.get().load(Profile_Picture).placeholder(R.drawable.profile_picture).into(profilePicture);
         }
 
+        public void setThumbnail(String thumbnail)
+        {
+            ImageView videoThumbnail = (ImageView) mView.findViewById(R.id.videoPost_video_thumbnail);
+            Picasso.get().load(thumbnail).placeholder(R.drawable.placeholder_image).into(videoThumbnail);
+        }
+
         public void setAttachment(String attachment)
         {
-            ImageView video = (ImageView) mView.findViewById(R.id.videoPost_video_thumbnail);
-            Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(attachment, MediaStore.Video.Thumbnails.MINI_KIND);
-            video.setImageBitmap(thumbnail);
+            //TODO: this
         }
     }
 
