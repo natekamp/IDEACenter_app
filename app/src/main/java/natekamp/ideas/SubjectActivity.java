@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -142,14 +143,48 @@ public class SubjectActivity extends AppCompatActivity
                     @Override
                     protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model)
                     {
+                        final String PostKey = getRef(position).getKey();
+                        final String VideoPostURL = model.getAttachment();
+
                         holder.setUsername(model.getUsername());
                         holder.setTimestamp(model.getTimestamp());
                         holder.setTitle(model.getTitle());
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setThumbnail(model.getThumbnail());
-                        holder.setAttachment(model.getAttachment());
-                        //setOnClickListener here?
+
+                        holder.mProfile_Picture.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                Toast.makeText(SubjectActivity.this, "TODO: Send to user profile", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        holder.mEditor.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                sendToPostEditorActivity(PostKey);
+                            }
+                        });
+                        holder.mDescription.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                Toast.makeText(SubjectActivity.this, "TODO: Expand description", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        holder.mThumbnail.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                sendToVideoActivity(VideoPostURL);
+                            }
+                        });
                     }
 
                     @NonNull
@@ -169,48 +204,53 @@ public class SubjectActivity extends AppCompatActivity
     public static class PostsViewHolder extends RecyclerView.ViewHolder
     {
         View mView;
+        CircleImageView mProfile_Picture;
+        ImageView mThumbnail, mEditor;
+        TextView mUsername, mTimestamp, mTitle, mDescription;
+
 
         public PostsViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
             mView = itemView;
+            mProfile_Picture = (CircleImageView) mView.findViewById(R.id.videoPost_profile_picture);
+            mThumbnail = (ImageView) mView.findViewById(R.id.videoPost_video_thumbnail);
+            mEditor = (ImageView) mView.findViewById(R.id.videoPost_editor_button);
+            mUsername = (TextView) mView.findViewById(R.id.videoPost_username);
+            mTimestamp = (TextView) mView.findViewById(R.id.videoPost_timestamp);
+            mTitle = (TextView) mView.findViewById(R.id.videoPost_title);
+            mDescription = (TextView) mView.findViewById(R.id.videoPost_description);
         }
 
         public void setUsername(String username)
         {
-            TextView postUsername = (TextView) mView.findViewById(R.id.videoPost_username);
-            postUsername.setText(username);
+            mUsername.setText(username);
         }
 
         public void setTimestamp(String timestamp)
         {
-            TextView postTimestamp = (TextView) mView.findViewById(R.id.videoPost_timestamp);
-            postTimestamp.setText(timestamp);
+            mTimestamp.setText(timestamp);
         }
 
         public void setTitle(String title)
         {
-            TextView postTitle = (TextView) mView.findViewById(R.id.videoPost_title);
-            postTitle.setText(title);
+            mTitle.setText(title);
         }
 
         public void setDescription(String description)
         {
-            TextView postDescription = (TextView) mView.findViewById(R.id.videoPost_description);
-            postDescription.setText(description);
+            mDescription.setText(description);
         }
 
         public void setProfile_Picture(String Profile_Picture)
         {
-            CircleImageView profilePicture = (CircleImageView) mView.findViewById(R.id.videoPost_profile_picture);
-            Picasso.get().load(Profile_Picture).placeholder(R.drawable.profile_picture).into(profilePicture);
+            Picasso.get().load(Profile_Picture).placeholder(R.drawable.profile_picture).into(mProfile_Picture);
         }
 
         public void setThumbnail(String thumbnail)
         {
-            ImageView videoThumbnail = (ImageView) mView.findViewById(R.id.videoPost_video_thumbnail);
-            Picasso.get().load(thumbnail).placeholder(R.drawable.placeholder_image).into(videoThumbnail);
+            Picasso.get().load(thumbnail).placeholder(R.drawable.placeholder_image).into(mThumbnail);
         }
 
         public void setAttachment(String attachment)
@@ -235,6 +275,13 @@ public class SubjectActivity extends AppCompatActivity
     private void sendToTourActivity()
     {
         //TODO: this
+    }
+
+    private void sendToPostEditorActivity(String key)
+    {
+        Intent editorIntent = new Intent(SubjectActivity.this, PostEditorActivity.class);
+        editorIntent.putExtra("EXTRA_POST_KEY", key);
+        startActivity(editorIntent);
     }
 
     private void sendToVideoActivity(String videoURL)

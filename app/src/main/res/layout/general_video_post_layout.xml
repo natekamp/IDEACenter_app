@@ -42,6 +42,17 @@
         android:text="TIMESTAMP"/>
 
     <ImageView
+        android:id="@+id/videoPost_editor_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/edit_icon"
+        android:tint="@color/colorPrimaryDark"
+        android:background="#00000000"
+        android:scaleType="fitCenter"/>
+
+    <ImageView
         android:id="@+id/videoPost_video_thumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
