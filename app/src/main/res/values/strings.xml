@@ -60,8 +60,7 @@
 
     <!--strings used in SubjectActivity-->
     <string name="subject_sort">Sort by:</string>
-    <string name="subject_new_videos">New Video Uploads</string>
-    <string name="subject_top_videos">Top Video Uploads</string>
+    <string name="subject_videos">Video Uploads</string>
     <string name="subject_time_prefix">Posted on</string>
     <string name="subject_time_infix">at</string>
 

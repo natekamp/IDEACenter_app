@@ -2,8 +2,12 @@ package natekamp.ideas;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 
 public class VideoActivity extends AppCompatActivity
 {
@@ -33,8 +37,8 @@ public class VideoActivity extends AppCompatActivity
         mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
 
-
         videoView.setMediaController(mediaController);
+        videoView.requestFocus();
         videoView.start();
     }
 }

@@ -3,6 +3,8 @@ package natekamp.ideas;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,9 +22,13 @@ public class PostEditorActivity extends AppCompatActivity
 {
     //extras
     private String postKey, subjectName;
+    private Boolean postTypeIsVideo;
 
     //firebase
     private DatabaseReference postedVideosRef;
+
+    //toolbar
+    private Toolbar mToolbar;
 
     //views
     private Button updateButton, deleteButton;
@@ -38,9 +44,17 @@ public class PostEditorActivity extends AppCompatActivity
         //extras
         postKey = getIntent().getExtras().getString("EXTRA_POST_KEY", "placeholder_key");
         subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
+        postTypeIsVideo = getIntent().getExtras().getBoolean("EXTRA_IS_VIDEO", true);
 
         //firebase
         postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos").child(postKey);
+
+        //toolbar
+        mToolbar = (Toolbar) findViewById(R.id.post_editor_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Edit Post");
 
         //views
         updateButton = (Button) findViewById(R.id.post_editor_update);
@@ -69,5 +83,15 @@ public class PostEditorActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {/*do nothing*/}
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) finish();
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -9,6 +9,7 @@
         android:id="@+id/videoPost_profile_picture"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/profile_picture"
@@ -46,9 +47,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/videoPost_profile_picture"
         android:src="@drawable/edit_icon"
-        android:tint="@color/colorPrimaryDark"
         android:background="#00000000"
         android:scaleType="fitCenter"/>
 
