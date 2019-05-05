@@ -42,7 +42,7 @@ public class SetupActivity extends AppCompatActivity
     private StorageReference userImageRef;
 
     //views
-    private EditText userName, userGrade;
+    private EditText userName;
     private Button saveButton;
     private CircleImageView profileImage;
 
@@ -64,7 +64,6 @@ public class SetupActivity extends AppCompatActivity
         //views
         profileImage = (CircleImageView) findViewById(R.id.setup_picture);
         userName = (EditText) findViewById(R.id.setup_name);
-        userGrade = (EditText) findViewById(R.id.setup_grade);
         saveButton = (Button) findViewById(R.id.setup_save);
 
         //progress dialog
@@ -175,9 +174,8 @@ public class SetupActivity extends AppCompatActivity
     private void saveSetupInfo()
     {
         String username = userName.getText().toString();
-        String grade = userGrade.getText().toString();
 
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(grade))
+        if (TextUtils.isEmpty(username))
             Toast.makeText(this, this.getString(R.string.error_field_msg), Toast.LENGTH_SHORT).show();
         else
         {
@@ -188,7 +186,6 @@ public class SetupActivity extends AppCompatActivity
 
             HashMap userMap = new HashMap();
                 userMap.put("Username", username);
-                userMap.put("Grade", grade);
             usersRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task)

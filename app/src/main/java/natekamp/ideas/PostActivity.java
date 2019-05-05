@@ -64,7 +64,7 @@ public class PostActivity extends AppCompatActivity
     private Uri attachmentUri;
     private Bitmap thumbnailBitmap;
     private String postTitle, postDescription;
-    String attachmentURL, thumbnailURL, currentDate, currentTime, postName, currentTimestamp;
+    String attachmentURL, thumbnailURL, currentDate, currentDateNum, currentTime, postName, currentTimestamp;
 
     //progress dialog
     private ProgressDialog loadingBar;
@@ -145,6 +145,7 @@ public class PostActivity extends AppCompatActivity
         Calendar cal = Calendar.getInstance();
         currentTimestamp = new SimpleDateFormat("'Posted on' MMMM dd, yyyy 'at' h:mm a").format(cal.getTime());
         currentDate = new SimpleDateFormat("yyyy-MMMM-dd").format(cal.getTime());
+        currentDateNum = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
         currentTime = new SimpleDateFormat("HH:mm:ss").format(cal.getTime());
         postTitle = titleText.getText().toString();
         postDescription = descriptionText.getText().toString();
@@ -170,7 +171,7 @@ public class PostActivity extends AppCompatActivity
 
     private void uploadAttachment(boolean postingEventWithoutAttachment)
     {
-        postName = currentUserID+"_"+currentDate+"_"+currentTime;
+        postName = currentDateNum+"_"+currentTime+"_"+currentUserID;
 
         if (postingEventWithoutAttachment)
         {
@@ -180,13 +181,13 @@ public class PostActivity extends AppCompatActivity
         else
         {
             StorageReference attachmentPath = postAttachmentsRef.child("post_attachments").child(currentUserID).child(
-                    currentDate+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
+                    currentDateNum+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
             );
 
             if (postTypeIsVideo)
             {
                 StorageReference thumbnailPath = postAttachmentsRef.child("post_thumbnails").child(currentUserID).child(
-                        currentDate+"_"+currentTime+"_videoThumbnail.png"
+                        currentDateNum+"_"+currentTime+"_videoThumbnail.png"
                 );
 
                 //convert thumbnail bitmap to byte array

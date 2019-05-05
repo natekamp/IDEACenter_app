@@ -30,6 +30,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -161,7 +162,7 @@ public class SubjectActivity extends AppCompatActivity
                         holder.setDescription(model.getDescription());
                         holder.setProfile_Picture(model.getProfile_Picture());
                         holder.setThumbnail(model.getThumbnail());
-                        if (isUsersPost) holder.removeEditor();
+                        if (!isUsersPost) holder.removeEditor();
 
                         holder.mProfile_Picture.setOnClickListener(new View.OnClickListener()
                         {
@@ -235,7 +236,7 @@ public class SubjectActivity extends AppCompatActivity
 
         public void removeEditor()
         {
-            mEditor.setColorFilter(Color.argb(0, 0, 0, 0));
+            mEditor.setVisibility(View.INVISIBLE);
         }
 
         public void setUsername(String username)
@@ -266,11 +267,6 @@ public class SubjectActivity extends AppCompatActivity
         public void setThumbnail(String thumbnail)
         {
             Picasso.get().load(thumbnail).placeholder(R.drawable.placeholder_image).into(mThumbnail);
-        }
-
-        public void setAttachment(String attachment)
-        {
-            //TODO: this
         }
     }
 
