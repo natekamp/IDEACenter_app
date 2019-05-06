@@ -177,7 +177,15 @@ public class SubjectActivity extends AppCompatActivity
                             @Override
                             public void onClick(View v)
                             {
-                                if (isUsersPost) sendToPostEditorActivity(PostKey);
+                                if (isUsersPost) sendToPostEditorActivity(PostKey, true);
+                            }
+                        });
+                        holder.mTitle.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                sendToPostEditorActivity(PostKey, false);
                             }
                         });
                         holder.mDescription.setOnClickListener(new View.OnClickListener()
@@ -185,7 +193,7 @@ public class SubjectActivity extends AppCompatActivity
                             @Override
                             public void onClick(View v)
                             {
-                                Toast.makeText(SubjectActivity.this, "TODO: Expand description", Toast.LENGTH_SHORT).show();
+                                sendToPostEditorActivity(PostKey, false);
                             }
                         });
                         holder.mThumbnail.setOnClickListener(new View.OnClickListener()
@@ -288,10 +296,11 @@ public class SubjectActivity extends AppCompatActivity
         //TODO: this
     }
 
-    private void sendToPostEditorActivity(String key)
+    private void sendToPostEditorActivity(String key, boolean isEditable)
     {
         Intent editorIntent = new Intent(SubjectActivity.this, PostEditorActivity.class);
         editorIntent.putExtra("EXTRA_POST_KEY", key);
+        editorIntent.putExtra("EXTRA_IS_EDITABLE", isEditable);
         editorIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         startActivity(editorIntent);
     }

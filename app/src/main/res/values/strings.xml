@@ -66,6 +66,12 @@
     <!--stings used in PostEditorActivity-->
     <string name="post_editor_update_button">Update Post</string>
     <string name="post_editor_delete_button">Delete Post</string>
+    <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
+    <string name="post_editor_confirm_update_title">Confirm Updating:</string>
+    <string name="post_editor_confirm_alert_message">Are you sure?</string>
+    <string name="post_editor_confirm_alert_positive">Confirm</string>
+    <string name="post_editor_confirm_delete_finished">Post Deleted.</string>
+    <string name="post_editor_confirm_update_finished">Post Updated!</string>
 
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
