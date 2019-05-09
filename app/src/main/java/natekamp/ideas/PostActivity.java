@@ -39,7 +39,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity
-{
+{//TODO: Merge common functions (with editor activity) into separate class?
     private final static int Gallery_Media = 1;
 
     //extras
@@ -65,6 +65,7 @@ public class PostActivity extends AppCompatActivity
     private Bitmap thumbnailBitmap;
     private String postTitle, postDescription;
     String attachmentURL, thumbnailURL, currentDate, currentDateNum, currentTime, postName, currentTimestamp;
+    boolean thumbnailUploaded = false;
 
     //progress dialog
     private ProgressDialog loadingBar;
@@ -175,7 +176,7 @@ public class PostActivity extends AppCompatActivity
 
         if (postingEventWithoutAttachment)
         {
-            attachmentURL = "NO_ATTACHMENT";
+            attachmentURL = "";
             savePostInfo();
         }
         else
@@ -199,7 +200,8 @@ public class PostActivity extends AppCompatActivity
                 thumbnailPath.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful())
+                        thumbnailUploaded = task.isSuccessful();
+                        if (thumbnailUploaded)
                         {
                             Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
                             result.addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -214,24 +216,26 @@ public class PostActivity extends AppCompatActivity
                 });
             }
 
-            //upload attachment to database
-            attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful())
-                    {
-                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                attachmentURL = uri.toString();
-                                savePostInfo();
-                            }
-                        });
+            if (thumbnailUploaded || !postTypeIsVideo)
+            {
+                //upload attachment to database
+                attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    attachmentURL = uri.toString();
+                                    savePostInfo();
+                                }
+                            });
+                        } else
+                            Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    else Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                });
+            }
         }
     }
 
@@ -311,6 +315,7 @@ public class PostActivity extends AppCompatActivity
             {
                 attachmentUri = data.getData();
 
+                //create thumbnail of video
                 MediaMetadataRetriever mMMR = new MediaMetadataRetriever();
                 mMMR.setDataSource(this, attachmentUri);
                 thumbnailBitmap = mMMR.getFrameAtTime();

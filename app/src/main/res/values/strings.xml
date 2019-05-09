@@ -69,7 +69,7 @@
     <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
     <string name="post_editor_confirm_update_title">Confirm Updating:</string>
     <string name="post_editor_confirm_alert_message">Are you sure?</string>
-    <string name="post_editor_confirm_alert_positive">Confirm</string>
+    <string name="post_editor_confirm_alert_positive">Yes</string>
     <string name="post_editor_confirm_delete_finished">Post Deleted.</string>
     <string name="post_editor_confirm_update_finished">Post Updated!</string>
 
@@ -103,5 +103,7 @@
     <string name="progress_pfp_msg">Updating profile picture, please wait.</string>
     <string name="progress_post_video_msg">Uploading video, please wait.</string>
     <string name="progress_post_event_msg">Posting event, please wait.</string>
+    <string name="progress_update_video_msg">Updating video, please wait.</string>
+    <string name="progress_update_event_msg">Updating event, please wait.</string>
 
 </resources>
