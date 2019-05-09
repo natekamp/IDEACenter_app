@@ -1,9 +1,107 @@
 <resources>
-    <string name="app_name">i.d.e.a.</string>
+    <!--app name for the action bar-->
+    <string name="app_name">IDEA Center</string>
+
+    <!--sidebar menu option titles-->
     <string name="nav_home_title">Home</string>
-    <string name="nav_friends_title">Friends</string>
+    <string name="nav_about_title">About the IDEA Center</string>
     <string name="nav_messages_title">Messages</string>
     <string name="nav_settings_title">Settings</string>
     <string name="nav_logout_title">Logout</string>
     <string name="nav_profile_title">Profile</string>
+
+    <!--subject names-->
+    <string name="subject_master_calendar">Master Calendar</string>
+    <string name="subject_calendar">Calendar</string>
+    <string name="subject_tour">Tour</string>
+    <string name="subject_name_art">Art</string>
+    <string name="subject_name_business">Business</string>
+    <string name="subject_name_culinary">Culinary</string>
+    <string name="subject_name_electronics">Electronics</string>
+
+    <!--strings used in multiple places-->
+    <string name="user_email_hint">Email</string>
+    <string name="user_password_hint">Password</string>
+
+    <!--strings used in AboutActivity-->
+    <string name="about_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
+    <string name="about_acronym">I\nD\nE\nA</string>
+    <string name="about_acronym_meaning">- Innovation\n- Design\n- Entrepreneurship\n- Arts</string>
+    <string name="about_toolbar_title">About the IDEA Center</string>
+
+    <!--strings used in MainActivity-->
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+
+    <!--strings used in RegisterActivity-->
+    <string name="register_confirm_hint">Confirm password</string>
+    <string name="register_finish_button">Create New Account</string>
+
+    <!--strings used in LoginActivity-->
+    <string name="login_new_user_msg">Don\'t have an account?</string>
+    <string name="login_register_button">Register Me!</string>
+    <string name="login_finish_button">Login</string>
+
+    <!--strings used in SetupActivity-->
+    <string name="setup_picture_msg">(tap to set a profile picture)</string>
+    <string name="setup_name_hint">Enter your username</string>
+    <string name="setup_finish_button">Save and Continue</string>
+
+    <!--strings used in PostActivity-->
+    <string name="post_finish_button">Finish and Post</string>
+    <string name="post_video_toolbar_title">Upload Video</string>
+    <string name="post_event_toolbar_title">Create Event</string>
+    <string name="post_video_choose">Select a Video to Attach</string>
+    <string name="post_image_choose">Select an Image to Attach</string>
+    <string name="post_title_hint">Give your post a title</string>
+    <string name="post_description_hint">Give your post a description</string>
+    <string name="post_video_size_warning">Warning: Large files will take longer to upload.</string>
+
+    <!--strings used in SubjectActivity-->
+    <string name="subject_sort">Sort by:</string>
+    <string name="subject_videos">Video Uploads</string>
+    <string name="subject_time_prefix">Posted on</string>
+    <string name="subject_time_infix">at</string>
+
+    <!--stings used in PostEditorActivity-->
+    <string name="post_editor_update_button">Update Post</string>
+    <string name="post_editor_delete_button">Delete Post</string>
+    <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
+    <string name="post_editor_confirm_update_title">Confirm Updating:</string>
+    <string name="post_editor_confirm_alert_message">Are you sure?</string>
+    <string name="post_editor_confirm_alert_positive">Confirm</string>
+    <string name="post_editor_confirm_delete_finished">Post Deleted.</string>
+    <string name="post_editor_confirm_update_finished">Post Updated!</string>
+
+    <!--error messages-->
+    <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
+    <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
+    <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
+    <string name="error_missing_name_msg">Username not found.</string>
+    <string name="error_field_msg">Please complete all fields.</string>
+    <string name="error_password_msg">Your passwords do not match.</string>
+    <string name="error_retry_msg">Something went wrong, please try again.</string>
+    <string name="error_missing_vid">Please select a video to post.</string>
+    <string name="error_missing_title">Please give your post a title.</string>
+
+    <!--success messages-->
+    <string name="success_auth_msg">Successfully created your account!</string>
+    <string name="success_login_msg">Successfully logged in.</string>
+    <string name="success_setup_msg">Successfully set up your account!</string>
+    <string name="success_logout_msg">Logged out.</string>
+    <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
+    <string name="success_pfp_msg_b">Profile picture saved.</string>
+    <string name="success_upload_attachment_msg">Attachment uploaded&#8230;</string>
+    <string name="success_post_video_msg">Video posted!</string>
+    <string name="success_post_event_msg">Event posted!</string>
+
+    <!--progress messages-->
+    <string name="progress_title">Working&#8230;</string>
+    <string name="progress_setup_msg">Setting up account, please wait.</string>
+    <string name="progress_register_msg">Creating account, please wait.</string>
+    <string name="progress_login_msg">Logging in, please wait.</string>
+    <string name="progress_pfp_msg">Updating profile picture, please wait.</string>
+    <string name="progress_post_video_msg">Uploading video, please wait.</string>
+    <string name="progress_post_event_msg">Posting event, please wait.</string>
+
 </resources>
