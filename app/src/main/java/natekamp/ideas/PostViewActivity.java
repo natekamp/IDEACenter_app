@@ -16,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,8 +36,9 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
-public class PostEditorActivity extends AppCompatActivity
+public class PostViewActivity extends AppCompatActivity
 {//TODO: Merge common functions (with post activity) into separate class? And also add event posting.
     private final static int Gallery_Media = 1;
 
@@ -48,7 +47,7 @@ public class PostEditorActivity extends AppCompatActivity
     private Boolean postTypeIsVideo, postIsEditable;
 
     //firebase
-    private DatabaseReference postedVideosRef;
+    private DatabaseReference postRef;
     private StorageReference postThumbnailRef, postAttachmentRef, allPostAttachmentsRef;
     private FirebaseAuth mAuth;
     private String currentUserID;
@@ -88,7 +87,8 @@ public class PostEditorActivity extends AppCompatActivity
         //firebase
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        postedVideosRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos").child(postKey);
+        postRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(subjectName).child("Videos").child(postKey);
+        allPostAttachmentsRef = FirebaseStorage.getInstance().getReference().child("post_attachments");
 
         //toolbar
         mToolbar = (Toolbar) findViewById(R.id.post_editor_toolbar);
@@ -106,7 +106,7 @@ public class PostEditorActivity extends AppCompatActivity
 
 
         //load post info from database into editor
-        postedVideosRef.addValueEventListener(new ValueEventListener()
+        postRef.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -185,34 +185,25 @@ public class PostEditorActivity extends AppCompatActivity
 
     private void updateCurrentPost()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PostEditorActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PostViewActivity.this);
         builder.setCancelable(true);
         builder.setTitle(R.string.post_editor_confirm_update_title);
-        builder.setMessage(R.string.post_editor_confirm_alert_message);
-        builder.setPositiveButton(R.string.post_editor_confirm_alert_positive,
+        builder.setMessage(R.string.alert_confirm_msg);
+        builder.setPositiveButton(R.string.alert_confirm_positive,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        loadingBar.setTitle(PostEditorActivity.this.getString(R.string.progress_title));
+                        loadingBar.setTitle(PostViewActivity.this.getString(R.string.progress_title));
                         loadingBar.setMessage(
-                                PostEditorActivity.this.getString(postTypeIsVideo ?
+                                PostViewActivity.this.getString(postTypeIsVideo ?
                                         R.string.progress_update_video_msg :
                                         R.string.progress_update_event_msg
                                 ));
                         loadingBar.show();
                         loadingBar.setCanceledOnTouchOutside(true);
 
-                        postAttachmentRef.delete();
-                        postThumbnailRef.delete();
                         uploadAttachment();
-                        postedVideosRef.child("Thumbnail").setValue(thumbnailURL);
-                        postedVideosRef.child("Attachment").setValue(attachmentURL);
-                        postedVideosRef.child("Title").setValue(titleText.getText().toString());
-                        postedVideosRef.child("Description").setValue(descriptionText.getText().toString());
-                        loadingBar.dismiss();
-                        Toast.makeText(PostEditorActivity.this, PostEditorActivity.this.getString(R.string.post_editor_confirm_update_finished), Toast.LENGTH_SHORT).show();
-                        finish();
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -226,19 +217,19 @@ public class PostEditorActivity extends AppCompatActivity
 
     private void deleteCurrentPost()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PostEditorActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PostViewActivity.this);
         builder.setCancelable(true);
         builder.setTitle(R.string.post_editor_confirm_delete_title);
-        builder.setMessage(R.string.post_editor_confirm_alert_message);
-        builder.setPositiveButton(R.string.post_editor_confirm_alert_positive,
+        builder.setMessage(R.string.alert_confirm_msg);
+        builder.setPositiveButton(R.string.alert_confirm_positive,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
                         postAttachmentRef.delete();
                         postThumbnailRef.delete();
-                        postedVideosRef.removeValue();
-                        Toast.makeText(PostEditorActivity.this, PostEditorActivity.this.getString(R.string.post_editor_confirm_delete_finished), Toast.LENGTH_SHORT).show();
+                        postRef.removeValue();
+                        Toast.makeText(PostViewActivity.this, PostViewActivity.this.getString(R.string.post_editor_confirm_delete_finished), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -291,34 +282,22 @@ public class PostEditorActivity extends AppCompatActivity
 
     private void sendToVideoActivity(String videoURL)
     {
-        Intent videoIntent = new Intent(PostEditorActivity.this, VideoActivity.class);
+        Intent videoIntent = new Intent(PostViewActivity.this, VideoActivity.class);
         videoIntent.putExtra("EXTRA_VIDEO_URL", videoURL);
         startActivity(videoIntent);
     }
 
     private void uploadAttachment()
     {
-        Calendar cal = Calendar.getInstance();
-        currentDateNum = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-        currentTime = new SimpleDateFormat("HH:mm:ss").format(cal.getTime());
-
-        StorageReference attachmentPath = allPostAttachmentsRef.child("post_attachments").child(currentUserID).child(
-                currentDateNum+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
-        );
-
         if (postTypeIsVideo)
         {
-            StorageReference thumbnailPath = allPostAttachmentsRef.child("post_thumbnails").child(currentUserID).child(
-                    currentDateNum+"_"+currentTime+"_videoThumbnail.png"
-            );
-
             //convert thumbnail bitmap to byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] thumbnailBytes = baos.toByteArray();
 
             //upload thumbnail to database
-            thumbnailPath.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            postThumbnailRef.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     thumbnailUploaded = task.isSuccessful();
@@ -332,7 +311,7 @@ public class PostEditorActivity extends AppCompatActivity
                             }
                         });
                     }
-                    else Toast.makeText(PostEditorActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -340,21 +319,47 @@ public class PostEditorActivity extends AppCompatActivity
         if (thumbnailUploaded || !postTypeIsVideo)
         {
             //upload attachment to database
-            attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            postAttachmentRef.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful())
+                    {
                         Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
                         result.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
                                 attachmentURL = uri.toString();
+                                savePostInfo();
                             }
                         });
                     } else
-                        Toast.makeText(PostEditorActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+    private void savePostInfo()
+    {
+        HashMap postMap = new HashMap();
+            postMap.put("Title", titleText.getText().toString());
+            postMap.put("Description", descriptionText.getText().toString());
+            postMap.put("Attachment", attachmentURL);
+            postMap.put("Thumbnail", thumbnailURL);
+        postRef.updateChildren(postMap)
+                .addOnCompleteListener(new OnCompleteListener()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task task)
+                    {
+                        String resultMsg = task.isSuccessful() ?
+                                PostViewActivity.this.getString(R.string.post_editor_confirm_update_finished) :
+                                "Error: " + task.getException().getMessage();
+
+                        loadingBar.dismiss();
+                        Toast.makeText(PostViewActivity.this, resultMsg, Toast.LENGTH_SHORT).show();
+
+                        if (task.isSuccessful()) finish();
+                    }
+                });
     }
 }

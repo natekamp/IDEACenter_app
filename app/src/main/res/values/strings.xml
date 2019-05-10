@@ -22,6 +22,8 @@
     <!--strings used in multiple places-->
     <string name="user_email_hint">Email</string>
     <string name="user_password_hint">Password</string>
+    <string name="alert_confirm_msg">Are you sure?</string>
+    <string name="alert_confirm_positive">Yes</string>
 
     <!--strings used in AboutActivity-->
     <string name="about_statement_msg">Integrating career driven skills through\nstudent led experiences to design our future</string>
@@ -63,13 +65,11 @@
     <string name="subject_time_prefix">Posted on</string>
     <string name="subject_time_infix">at</string>
 
-    <!--stings used in PostEditorActivity-->
+    <!--stings used in PostViewActivity-->
     <string name="post_editor_update_button">Update Post</string>
     <string name="post_editor_delete_button">Delete Post</string>
     <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
     <string name="post_editor_confirm_update_title">Confirm Updating:</string>
-    <string name="post_editor_confirm_alert_message">Are you sure?</string>
-    <string name="post_editor_confirm_alert_positive">Yes</string>
     <string name="post_editor_confirm_delete_finished">Post Deleted.</string>
     <string name="post_editor_confirm_update_finished">Post Updated!</string>
 
