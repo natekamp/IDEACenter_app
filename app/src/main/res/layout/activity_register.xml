@@ -30,6 +30,7 @@
         android:background="@drawable/inputs"
         android:ems="10"
         android:hint="@string/user_email_hint"
+        android:textColor="@color/colorPrimaryDark"
         android:inputType="textEmailAddress"
         android:padding="10dp"/>
 
@@ -46,6 +47,7 @@
         android:padding="10dp"
         android:ems="10"
         android:hint="@string/user_password_hint"
+        android:textColor="@color/colorPrimaryDark"
         android:inputType="textPassword"
         android:background="@drawable/inputs"/>
 
@@ -62,6 +64,7 @@
         android:padding="10dp"
         android:ems="10"
         android:hint="@string/register_confirm_hint"
+        android:textColor="@color/colorPrimaryDark"
         android:inputType="textPassword"
         android:background="@drawable/inputs"/>
 

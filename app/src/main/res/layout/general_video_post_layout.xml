@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/videoPost_username"
         app:layout_constraintBottom_toBottomOf="@id/videoPost_profile_picture"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:textColor="@color/colorPrimaryDark"
         android:text="TIMESTAMP"/>
 
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@id/videoPost_title"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:textColor="@color/colorPrimaryDark"
         android:text="DESCRIPTION"/>
 

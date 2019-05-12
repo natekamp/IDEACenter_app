@@ -12,11 +12,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,9 +67,10 @@ public class PostViewActivity extends AppCompatActivity
     private Button updateButton, deleteButton;
     private EditText titleText, descriptionText;
     private ImageView attachmentImage;
+    private TextView videoSizeWarning;
 
     //other
-    private boolean authorized;
+    private boolean authorized = false, newAttachmentExists = false;
 
     //progress dialog
     private ProgressDialog loadingBar;
@@ -82,7 +85,7 @@ public class PostViewActivity extends AppCompatActivity
         postKey = getIntent().getExtras().getString("EXTRA_POST_KEY", "placeholder_key");
         subjectName = getIntent().getExtras().getString("EXTRA_SUBJECT_NAME", "placeholder_name");
         postTypeIsVideo = getIntent().getExtras().getBoolean("EXTRA_IS_VIDEO", true);
-        postIsEditable = getIntent().getExtras().getBoolean("EXTRA_IS_EDITABLE", false);
+        postIsEditable = getIntent().getExtras().getBoolean("EXTRA_IS_EDITABLE");
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
@@ -95,14 +98,18 @@ public class PostViewActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Edit Post");
+        getSupportActionBar().setTitle(R.string.post_editor_edit_toolbar_title);
 
         //views
         updateButton = (Button) findViewById(R.id.post_editor_update);
         deleteButton = (Button) findViewById(R.id.post_editor_delete);
+        videoSizeWarning = (TextView) findViewById(R.id.post_editor_video_size_warning);
         titleText = (EditText) findViewById(R.id.post_editor_title);
         descriptionText = (EditText) findViewById(R.id.post_editor_description);
         attachmentImage = (ImageView) findViewById(R.id.post_editor_attachment);
+
+        //progress dialog
+        loadingBar = new ProgressDialog(this);
 
 
         //load post info from database into editor
@@ -118,13 +125,16 @@ public class PostViewActivity extends AppCompatActivity
                     postThumbnail = dataSnapshot.child("Thumbnail").getValue().toString();
                     postUserID = dataSnapshot.child("UID").getValue().toString();
                     postAttachment = dataSnapshot.child("Attachment").getValue().toString();
-                    authorized = currentUserID.equals(postUserID);
                     postThumbnailRef = FirebaseStorage.getInstance().getReferenceFromUrl(postThumbnail);
                     postAttachmentRef = FirebaseStorage.getInstance().getReferenceFromUrl(postAttachment);
+
+                    authorized = currentUserID.equals(postUserID);
 
                     titleText.setText(postTitle);
                     descriptionText.setText(postDescription);
                     Picasso.get().load(postThumbnail).placeholder(R.drawable.placeholder_image).into(attachmentImage);
+
+                    applyModeFeatures();
                 }
             }
 
@@ -132,12 +142,19 @@ public class PostViewActivity extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError databaseError) {/*do nothing*/}
         });
 
+    }
+
+    public void applyModeFeatures()
+    {
         if (!authorized || !postIsEditable)
         {
             disableEditText(titleText);
             disableEditText(descriptionText);
             updateButton.setVisibility(View.INVISIBLE);
             deleteButton.setVisibility(View.INVISIBLE);
+            videoSizeWarning.setVisibility(View.INVISIBLE);
+            descriptionText.setHint(R.string.post_editor_no_description_hint);
+            getSupportActionBar().setTitle(R.string.post_editor_view_toolbar_title);
 
             attachmentImage.setOnClickListener(new View.OnClickListener()
             {
@@ -203,7 +220,15 @@ public class PostViewActivity extends AppCompatActivity
                         loadingBar.show();
                         loadingBar.setCanceledOnTouchOutside(true);
 
-                        uploadAttachment();
+                        if (newAttachmentExists)
+                        {
+                            if (postTypeIsVideo)
+                                uploadThumbnail();
+                            else
+                                uploadAttachment();
+                        }
+                        else
+                            savePostInfo();
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -268,6 +293,8 @@ public class PostViewActivity extends AppCompatActivity
                 thumbnailBitmap = mMMR.getFrameAtTime();
 
                 attachmentImage.setImageBitmap(thumbnailBitmap);
+
+                newAttachmentExists = true;
             }
         }
     }
@@ -287,64 +314,65 @@ public class PostViewActivity extends AppCompatActivity
         startActivity(videoIntent);
     }
 
+    private void uploadThumbnail()
+    {
+        //convert thumbnail bitmap to byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] thumbnailBytes = baos.toByteArray();
+
+        //upload thumbnail to database
+        postThumbnailRef.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            thumbnailURL = uri.toString();
+                            uploadAttachment();
+                        }
+                    });
+                }
+                else Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void uploadAttachment()
     {
-        if (postTypeIsVideo)
-        {
-            //convert thumbnail bitmap to byte array
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] thumbnailBytes = baos.toByteArray();
-
-            //upload thumbnail to database
-            postThumbnailRef.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    thumbnailUploaded = task.isSuccessful();
-                    if (thumbnailUploaded)
-                    {
-                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                thumbnailURL = uri.toString();
-                            }
-                        });
-                    }
-                    else Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        if (thumbnailUploaded || !postTypeIsVideo)
-        {
-            //upload attachment to database
-            postAttachmentRef.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful())
-                    {
-                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                attachmentURL = uri.toString();
-                                savePostInfo();
-                            }
-                        });
-                    } else
-                        Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        //upload attachment to database
+        postAttachmentRef.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            attachmentURL = uri.toString();
+                            savePostInfo();
+                        }
+                    });
+                } else
+                    Toast.makeText(PostViewActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
     private void savePostInfo()
     {
         HashMap postMap = new HashMap();
             postMap.put("Title", titleText.getText().toString());
             postMap.put("Description", descriptionText.getText().toString());
-            postMap.put("Attachment", attachmentURL);
-            postMap.put("Thumbnail", thumbnailURL);
+            if (newAttachmentExists)
+            {
+                postMap.put("Attachment", attachmentURL);
+                postMap.put("Thumbnail", thumbnailURL);
+            }
         postRef.updateChildren(postMap)
                 .addOnCompleteListener(new OnCompleteListener()
                 {

@@ -65,7 +65,7 @@ public class PostActivity extends AppCompatActivity
     private Bitmap thumbnailBitmap;
     private String postTitle, postDescription;
     String attachmentURL, thumbnailURL, currentDate, currentDateNum, currentTime, postName, currentTimestamp;
-    boolean thumbnailUploaded = false;
+    boolean thumbnailUploaded = false, attachmentExists = false;
 
     //progress dialog
     private ProgressDialog loadingBar;
@@ -166,77 +166,75 @@ public class PostActivity extends AppCompatActivity
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
-            uploadAttachment(!postTypeIsVideo && attachmentUri==null);
+            if (attachmentExists)
+            {
+                if (postTypeIsVideo)
+                    uploadThumbnail();
+                else
+                    uploadAttachment();
+            }
+            else
+                savePostInfo();
         }
     }
 
-    private void uploadAttachment(boolean postingEventWithoutAttachment)
+    private void uploadThumbnail()
+    {
+        StorageReference thumbnailPath = postAttachmentsRef.child("post_thumbnails").child(currentUserID).child(
+                currentDateNum+"_"+currentTime+"_videoThumbnail.png"
+        );
+
+        //convert thumbnail bitmap to byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] thumbnailBytes = baos.toByteArray();
+
+        //upload thumbnail to database
+        thumbnailPath.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                thumbnailUploaded = task.isSuccessful();
+                if (thumbnailUploaded)
+                {
+                    Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            thumbnailURL = uri.toString();
+                            uploadAttachment();
+                        }
+                    });
+                }
+                else Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void uploadAttachment()
     {
         postName = currentDateNum+"_"+currentTime+"_"+currentUserID;
 
-        if (postingEventWithoutAttachment)
-        {
-            attachmentURL = "";
-            savePostInfo();
-        }
-        else
-        {
-            StorageReference attachmentPath = postAttachmentsRef.child("post_attachments").child(currentUserID).child(
-                    currentDateNum+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
-            );
+        StorageReference attachmentPath = postAttachmentsRef.child("post_attachments").child(currentUserID).child(
+                currentDateNum+"_"+currentTime+"_attached"+(postTypeIsVideo ? "Video.mp4" : "Image.png")
+        );
 
-            if (postTypeIsVideo)
-            {
-                StorageReference thumbnailPath = postAttachmentsRef.child("post_thumbnails").child(currentUserID).child(
-                        currentDateNum+"_"+currentTime+"_videoThumbnail.png"
-                );
-
-                //convert thumbnail bitmap to byte array
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                thumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] thumbnailBytes = baos.toByteArray();
-
-                //upload thumbnail to database
-                thumbnailPath.putBytes(thumbnailBytes).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        thumbnailUploaded = task.isSuccessful();
-                        if (thumbnailUploaded)
-                        {
-                            Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    thumbnailURL = uri.toString();
-                                }
-                            });
+        //upload attachment to database
+        attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                    result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            attachmentURL = uri.toString();
+                            savePostInfo();
                         }
-                        else Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                } else
+                    Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-            if (thumbnailUploaded || !postTypeIsVideo)
-            {
-                //upload attachment to database
-                attachmentPath.putFile(attachmentUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
-                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    attachmentURL = uri.toString();
-                                    savePostInfo();
-                                }
-                            });
-                        } else
-                            Toast.makeText(PostActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }
+        });
     }
 
     private void savePostInfo()
@@ -321,6 +319,8 @@ public class PostActivity extends AppCompatActivity
                 thumbnailBitmap = mMMR.getFrameAtTime();
 
                 attachmentImage.setImageBitmap(thumbnailBitmap);
+
+                attachmentExists = true;
             }
         }
     }
