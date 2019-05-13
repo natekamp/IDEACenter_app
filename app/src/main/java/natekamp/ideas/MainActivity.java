@@ -181,12 +181,10 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
     private void sendToSetupActivity(boolean fromRegister, boolean isEditable, String profileUID)
     {
         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
-        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         setupIntent.putExtra("EXTRA_PROFILE_UID", profileUID);
         setupIntent.putExtra("EXTRA_FROM_REGISTER", fromRegister);
         setupIntent.putExtra("EXTRA_IS_EDITABLE", isEditable);
         startActivity(setupIntent);
-        finish();
     }
 
     private void sendToSetupActivity()
@@ -270,10 +268,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
     private void UserMenuSelector(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                sendToSetupActivity(false, true, currentUserID);
-                break;
-            case R.id.nav_home:
-                Toast.makeText(this, "Home Selected", Toast.LENGTH_SHORT).show();
+                sendToSetupActivity(false, false, currentUserID);
                 break;
             case R.id.nav_about:
                 sendToAboutActivity();
@@ -282,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements SubjectListRecycl
                 Toast.makeText(this, "Messages Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_settings:
-                Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                sendToSetupActivity(false, true, currentUserID);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();

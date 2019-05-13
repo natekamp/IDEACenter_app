@@ -46,6 +46,7 @@
 
     <!--strings used in SetupActivity-->
     <string name="setup_view_toolbar_title">View Profile</string>
+    <string name="setup_edit_toolbar_title">Edit Profile</string>
     <string name="setup_name_hint">Set your username</string>
     <string name="setup_bio_hint">Write about yourself!</string>
     <string name="setup_no_bio_hint">(no bio)</string>
@@ -92,7 +93,8 @@
     <!--success messages-->
     <string name="success_auth_msg">Successfully created your account!</string>
     <string name="success_login_msg">Successfully logged in.</string>
-    <string name="success_setup_msg">Successfully set up your account!</string>
+    <string name="success_setup_msg_a">Successfully set up your account!</string>
+    <string name="success_setup_msg_b">Profile updated!</string>
     <string name="success_logout_msg">Logged out.</string>
     <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
     <string name="success_pfp_msg_b">Profile picture saved.</string>

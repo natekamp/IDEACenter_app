@@ -71,14 +71,15 @@ public class SetupActivity extends AppCompatActivity
         //firebase
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(profileUid);
-        usersRef.child("Profile Picture").setValue(defaultProfilePictureURL);
-        userImageRef = FirebaseStorage.getInstance().getReference().child("profile_pictures").child(profileUid+".png");
 
         //extras
         profileUid = getIntent().getExtras().getString("EXTRA_PROFILE_UID", currentUserID);
         fromRegisterActivity = getIntent().getExtras().getBoolean("EXTRA_FROM_REGISTER", false);
         profileIsEditable = getIntent().getExtras().getBoolean("EXTRA_IS_EDITABLE", false);
+
+        //firebase (cont.)
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(profileUid);
+        userImageRef = FirebaseStorage.getInstance().getReference().child("profile_pictures").child(profileUid+".png");
 
         //toolbar
         mToolbar = (Toolbar) findViewById(R.id.setup_toolbar);
@@ -108,9 +109,16 @@ public class SetupActivity extends AppCompatActivity
             {
                 if (dataSnapshot.exists())
                 {
-                    profilePicture = dataSnapshot.hasChild("Profile Picture") ?
-                            dataSnapshot.child("Profile Picture").getValue().toString() : defaultProfilePictureURL;
-                    Picasso.get().load(profilePicture).placeholder(R.drawable.profile_picture).into(profileImage);
+                    if (dataSnapshot.hasChild("Profile Picture"))
+                    {
+                        profilePicture = dataSnapshot.child("Profile Picture").getValue().toString();
+                        Picasso.get().load(profilePicture).placeholder(R.drawable.profile_picture).into(profileImage);
+                    }
+                    else
+                    {
+                        profilePicture = defaultProfilePictureURL;
+                        usersRef.child("Profile Picture").setValue(defaultProfilePictureURL);
+                    }
                     if (dataSnapshot.hasChild("Username"))
                     {
                         username = dataSnapshot.child("Username").getValue().toString();
@@ -208,11 +216,13 @@ public class SetupActivity extends AppCompatActivity
             disableEditText(userName);
             disableEditText(userBio);
             saveButton.setVisibility(View.INVISIBLE);
+            userName.setHint("");
             userBio.setHint(R.string.setup_no_bio_hint);
         }
         else
         {
-            mToolbar.setVisibility(View.GONE);
+            if (fromRegisterActivity) mToolbar.setVisibility(View.GONE);
+            else getSupportActionBar().setTitle(R.string.setup_edit_toolbar_title);
 
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -257,7 +267,9 @@ public class SetupActivity extends AppCompatActivity
                 public void onComplete(@NonNull Task task)
                 {
                     String resultMsg = task.isSuccessful() ?
-                            SetupActivity.this.getString(R.string.success_setup_msg) :
+                            (fromRegisterActivity ?
+                                    SetupActivity.this.getString(R.string.success_setup_msg_a) :
+                                    SetupActivity.this.getString(R.string.success_setup_msg_b)) :
                             "Error: " + task.getException().getMessage();
 
                     loadingBar.dismiss();
