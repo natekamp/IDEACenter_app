@@ -42,6 +42,7 @@
         android:layout_marginRight="5dp"
         android:ems="10"
         android:hint="@string/setup_name_hint"
+        android:textColor="@color/colorPrimaryDark"
         android:inputType="textMultiLine"
         android:background="@drawable/inputs"
         android:padding="10dp"/>

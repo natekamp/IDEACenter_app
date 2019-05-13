@@ -2,12 +2,6 @@ package natekamp.ideas;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.media.MediaMetadataRetriever;
-import android.media.ThumbnailUtils;
-import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,22 +12,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -298,7 +287,7 @@ public class SubjectActivity extends AppCompatActivity
 
     private void sendToPostEditorActivity(String key, boolean isEditable)
     {
-        Intent editorIntent = new Intent(SubjectActivity.this, PostEditorActivity.class);
+        Intent editorIntent = new Intent(SubjectActivity.this, PostViewActivity.class);
         editorIntent.putExtra("EXTRA_POST_KEY", key);
         editorIntent.putExtra("EXTRA_IS_EDITABLE", isEditable);
         editorIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);

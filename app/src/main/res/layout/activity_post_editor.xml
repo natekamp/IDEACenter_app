@@ -33,6 +33,8 @@
         android:background="@drawable/inputs"
         android:ems="10"
         android:hint="@string/post_title_hint"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:padding="10dp"/>
 
     <EditText
@@ -50,6 +52,7 @@
         android:ems="10"
         android:scrollHorizontally="false"
         android:hint="@string/post_description_hint"
+        android:textColor="@color/colorPrimaryDark"
         android:padding="10dp"
         android:gravity="top"/>
 
