@@ -4,37 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     tools:context=".SetupActivity">
+
+    <include
+        android:id="@+id/setup_toolbar"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setup_picture"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setup_toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="25dp"
-        android:src="@drawable/profile_picture"/>
-
-    <TextView
-        android:id="@+id/setup_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/setup_picture"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:text="@string/setup_picture_msg"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"/>
+        android:src="@drawable/profile_picture"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="2dp"/>
 
     <EditText
         android:id="@+id/setup_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/setup_message"
+        app:layout_constraintTop_toBottomOf="@id/setup_picture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="25dp"
@@ -42,19 +35,40 @@
         android:layout_marginRight="5dp"
         android:ems="10"
         android:hint="@string/setup_name_hint"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
-        android:inputType="textMultiLine"
         android:background="@drawable/inputs"
         android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/setup_bio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/setup_name"
+        app:layout_constraintBottom_toTopOf="@id/setup_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:ems="10"
+        android:hint="@string/setup_bio_hint"
+        android:scrollHorizontally="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/inputs"
+        android:padding="10dp"
+        android:gravity="top"/>
 
     <Button
         android:id="@+id/setup_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/setup_name"
+        app:layout_constraintTop_toBottomOf="@id/setup_bio"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/setup_finish_button"
         android:background="@drawable/button"
         android:padding="10dp"

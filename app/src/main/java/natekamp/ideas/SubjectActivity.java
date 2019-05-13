@@ -144,6 +144,7 @@ public class SubjectActivity extends AppCompatActivity
                         final String PostKey = getRef(position).getKey();
                         final String VideoPostURL = model.getAttachment();
                         final boolean isUsersPost = PostKey.contains(currentUserID);
+                        final String postUID = model.getUID();
 
                         holder.setUsername(model.getUsername());
                         holder.setTimestamp(model.getTimestamp());
@@ -158,7 +159,7 @@ public class SubjectActivity extends AppCompatActivity
                             @Override
                             public void onClick(View v)
                             {
-                                Toast.makeText(SubjectActivity.this, "TODO: Send to user profile", Toast.LENGTH_SHORT).show();
+                                sendToSetupActivity(false, true, postUID);
                             }
                         });
                         holder.mEditor.setOnClickListener(new View.OnClickListener()
@@ -273,6 +274,17 @@ public class SubjectActivity extends AppCompatActivity
         postIntent.putExtra("EXTRA_IS_VIDEO", true);
         postIntent.putExtra("EXTRA_SUBJECT_NAME", subjectName);
         startActivity(postIntent);
+    }
+
+    private void sendToSetupActivity(boolean fromRegister, boolean isEditable, String profileUID)
+    {
+        Intent setupIntent = new Intent(SubjectActivity.this, SetupActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        setupIntent.putExtra("EXTRA_PROFILE_UID", profileUID);
+        setupIntent.putExtra("EXTRA_FROM_REGISTER", fromRegister);
+        setupIntent.putExtra("EXTRA_IS_EDITABLE", isEditable);
+        startActivity(setupIntent);
+        finish();
     }
 
     private void sendToCalendarActivity()

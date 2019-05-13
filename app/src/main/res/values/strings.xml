@@ -45,9 +45,11 @@
     <string name="login_finish_button">Login</string>
 
     <!--strings used in SetupActivity-->
-    <string name="setup_picture_msg">(tap to set a profile picture)</string>
-    <string name="setup_name_hint">Enter your username</string>
-    <string name="setup_finish_button">Save and Continue</string>
+    <string name="setup_view_toolbar_title">View Profile</string>
+    <string name="setup_name_hint">Set your username</string>
+    <string name="setup_bio_hint">Write about yourself!</string>
+    <string name="setup_no_bio_hint">(no bio)</string>
+    <string name="setup_finish_button">Save</string>
 
     <!--strings used in PostActivity-->
     <string name="post_finish_button">Finish and Post</string>
@@ -79,9 +81,9 @@
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
-    <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
     <string name="error_missing_name_msg">Username not found.</string>
     <string name="error_field_msg">Please complete all fields.</string>
+    <string name="error_username_msg">You must enter a username.</string>
     <string name="error_password_msg">Your passwords do not match.</string>
     <string name="error_retry_msg">Something went wrong, please try again.</string>
     <string name="error_missing_vid">Please select a video to post.</string>

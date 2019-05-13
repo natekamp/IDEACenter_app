@@ -111,6 +111,8 @@ public class RegisterActivity extends AppCompatActivity
     {
         Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        setupIntent.putExtra("EXTRA_FROM_REGISTER", true);
+        setupIntent.putExtra("EXTRA_IS_EDITABLE", true);
         startActivity(setupIntent);
         finish();
     }
