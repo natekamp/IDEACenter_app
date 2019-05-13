@@ -30,6 +30,7 @@
     <string name="about_acronym">I\nD\nE\nA</string>
     <string name="about_acronym_meaning">- Innovation\n- Design\n- Entrepreneurship\n- Arts</string>
     <string name="about_toolbar_title">About the IDEA Center</string>
+    <string name="about_credits">People behind the IDEA Center:\nClaira Gilchrist,\nNathan Kampbell,\nVincent Vocasek,\nMichael Pintaric</string>
 
     <!--strings used in MainActivity-->
     <string name="drawer_open">Drawer Open</string>
@@ -70,7 +71,7 @@
 
     <!--stings used in PostViewActivity-->
     <string name="post_editor_view_toolbar_title">View Post</string>
-    <string name="post_editor_edit_toolbar_title">View and Edit Post</string>
+    <string name="post_editor_edit_toolbar_title">Edit Post</string>
     <string name="post_editor_update_button">Update Post</string>
     <string name="post_editor_delete_button">Delete Post</string>
     <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
