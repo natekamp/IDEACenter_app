@@ -30,6 +30,7 @@
     <string name="about_acronym">I\nD\nE\nA</string>
     <string name="about_acronym_meaning">- Innovation\n- Design\n- Entrepreneurship\n- Arts</string>
     <string name="about_toolbar_title">About the IDEA Center</string>
+    <string name="about_credits">People behind the IDEA Center:\nClaira Gilchrist,\nNathan Kampbell,\nVincent Vocasek,\nMichael Pintaric</string>
 
     <!--strings used in MainActivity-->
     <string name="drawer_open">Drawer Open</string>
@@ -45,9 +46,12 @@
     <string name="login_finish_button">Login</string>
 
     <!--strings used in SetupActivity-->
-    <string name="setup_picture_msg">(tap to set a profile picture)</string>
-    <string name="setup_name_hint">Enter your username</string>
-    <string name="setup_finish_button">Save and Continue</string>
+    <string name="setup_view_toolbar_title">View Profile</string>
+    <string name="setup_edit_toolbar_title">Edit Profile</string>
+    <string name="setup_name_hint">Set your username</string>
+    <string name="setup_bio_hint">Write about yourself!</string>
+    <string name="setup_no_bio_hint">(no bio)</string>
+    <string name="setup_finish_button">Save</string>
 
     <!--strings used in PostActivity-->
     <string name="post_finish_button">Finish and Post</string>
@@ -67,7 +71,7 @@
 
     <!--stings used in PostViewActivity-->
     <string name="post_editor_view_toolbar_title">View Post</string>
-    <string name="post_editor_edit_toolbar_title">View and Edit Post</string>
+    <string name="post_editor_edit_toolbar_title">Edit Post</string>
     <string name="post_editor_update_button">Update Post</string>
     <string name="post_editor_delete_button">Delete Post</string>
     <string name="post_editor_confirm_delete_title">Confirm Deletion:</string>
@@ -79,9 +83,9 @@
     <!--error messages-->
     <string name="error_invalid_email_domain">Please use your \'@thompsonschools.org\' email address.</string>
     <string name="error_missing_pfp_msg_a">Profile picture not found.</string>
-    <string name="error_missing_pfp_msg_b">Please select a profile picture.</string>
     <string name="error_missing_name_msg">Username not found.</string>
     <string name="error_field_msg">Please complete all fields.</string>
+    <string name="error_username_msg">You must enter a username.</string>
     <string name="error_password_msg">Your passwords do not match.</string>
     <string name="error_retry_msg">Something went wrong, please try again.</string>
     <string name="error_missing_vid">Please select a video to post.</string>
@@ -90,7 +94,8 @@
     <!--success messages-->
     <string name="success_auth_msg">Successfully created your account!</string>
     <string name="success_login_msg">Successfully logged in.</string>
-    <string name="success_setup_msg">Successfully set up your account!</string>
+    <string name="success_setup_msg_a">Successfully set up your account!</string>
+    <string name="success_setup_msg_b">Profile updated!</string>
     <string name="success_logout_msg">Logged out.</string>
     <string name="success_pfp_msg_a">Profile picture uploaded&#8230;</string>
     <string name="success_pfp_msg_b">Profile picture saved.</string>
