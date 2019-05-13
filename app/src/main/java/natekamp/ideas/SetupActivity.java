@@ -181,7 +181,11 @@ public class SetupActivity extends AppCompatActivity
                                                     if (task.isSuccessful())
                                                     {
                                                         Intent selfIntent = new Intent(SetupActivity.this, SetupActivity.class);
+                                                        selfIntent.putExtra("EXTRA_PROFILE_UID", profileUid);
+                                                        selfIntent.putExtra("EXTRA_FROM_REGISTER", fromRegisterActivity);
+                                                        selfIntent.putExtra("EXTRA_IS_EDITABLE", profileIsEditable);
                                                         startActivity(selfIntent);
+                                                        finish();
                                                     }
                                                 }
                                             });
